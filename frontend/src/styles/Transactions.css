@@ -1,0 +1,61 @@
+.transactions {
+  padding: 3rem 2rem;
+  animation: fadeIn 0.7s ease-in;
+}
+
+.transactions table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.transactions th,
+.transactions td {
+  padding: 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.transactions th {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.transactions td {
+  color: var(--text);
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .transactions {
+    padding: 1.5rem 1rem;
+  }
+  .transactions th,
+  .transactions td {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .transactions {
+    padding: 2rem 1.5rem;
+  }
+  .transactions th,
+  .transactions td {
+    padding: 1rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .transactions th,
+  .transactions td {
+    padding: 1.2rem;
+  }
+}

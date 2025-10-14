@@ -1,0 +1,43 @@
+.notifications {
+  padding: 3rem 2rem;
+  animation: fadeIn 0.7s ease-in;
+}
+
+.notifications ul {
+  list-style: none;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.notifications li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #E5E7EB;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .notifications {
+    padding: 1.5rem 1rem;
+  }
+  .notifications ul {
+    padding: 1.2rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .notifications {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .notifications {
+    padding: 3rem 2rem;
+  }
+}

@@ -1,0 +1,63 @@
+:root {
+  --primary: #0A3D62;
+  --accent: #FFD700;
+  --secondary: #3E7CB1;
+  --background: #F9FAFB;
+  --text: #1F2A44;
+  --success: #22C55E;
+  --error: #EF4444;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Fade-in animation for components */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  body {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,64 @@
+.transfer-payment {
+  padding: 3rem 2rem;
+  animation: fadeIn 0.7s ease-in;
+}
+
+.transfer-payment form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 450px;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.transfer-payment input,
+.transfer-payment select,
+.transfer-payment textarea {
+  padding: 0.9rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.transfer-payment button {
+  padding: 0.9rem;
+  background: linear-gradient(90deg, var(--accent), #FFC107);
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.transfer-payment button:hover {
+  background: linear-gradient(90deg, #FFC107, var(--accent));
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .transfer-payment {
+    padding: 1.5rem 1rem;
+  }
+  .transfer-payment form {
+    max-width: 100%;
+    padding: 1.2rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .transfer-payment {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .transfer-payment form {
+    max-width: 450px;
+  }
+}

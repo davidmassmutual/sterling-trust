@@ -1,0 +1,38 @@
+.security-display {
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.7s ease-in;
+}
+
+.security-display h2 {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.security-display p {
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .security-display {
+    padding: 1.2rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .security-display {
+    padding: 1.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .security-display {
+    padding: 2rem;
+  }
+}

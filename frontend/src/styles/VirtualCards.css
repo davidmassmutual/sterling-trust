@@ -1,0 +1,48 @@
+.virtual-cards {
+  padding: 3rem 2rem;
+  background-color: var(--background);
+  animation: fadeIn 0.7s ease-in;
+}
+
+.virtual-cards h2 {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.virtual-cards button {
+  padding: 0.9rem;
+  background: linear-gradient(90deg, var(--accent), #FFC107);
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.virtual-cards button:hover {
+  background: linear-gradient(90deg, #FFC107, var(--accent));
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .virtual-cards {
+    padding: 1.5rem 1rem;
+  }
+  .virtual-cards button {
+    padding: 0.7rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .virtual-cards {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .virtual-cards {
+    padding: 3rem 2rem;
+  }
+}

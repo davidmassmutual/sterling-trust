@@ -1,0 +1,68 @@
+.hero {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  animation: fadeIn 0.7s ease-in;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+}
+
+.hero-buttons button {
+  padding: 0.9rem 2.5rem;
+  margin: 0 1rem;
+  background: linear-gradient(90deg, var(--accent), #FFC107);
+  border: none;
+  color: var(--text);
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hero-buttons button:hover {
+  background: linear-gradient(90deg, #FFC107, var(--accent));
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .hero {
+    padding: 3rem 1rem;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .hero-buttons button {
+    padding: 0.7rem 1.5rem;
+    margin: 0.5rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.5rem;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .hero {
+    padding: 5rem 2rem;
+  }
+}

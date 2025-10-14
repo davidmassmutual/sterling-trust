@@ -1,0 +1,29 @@
+.dashboard {
+  padding: 3rem 2rem;
+  display: grid;
+  gap: 2.5rem;
+  background-color: var(--background);
+  animation: fadeIn 0.7s ease-in;
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .dashboard {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .dashboard {
+    padding: 3rem 2rem;
+  }
+}

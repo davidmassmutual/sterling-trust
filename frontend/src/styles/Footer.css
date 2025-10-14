@@ -1,0 +1,48 @@
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--primary);
+  color: white;
+  margin-top: 3rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.footer-links {
+  margin-top: 0.8rem;
+}
+
+.footer-links a {
+  color: var(--accent);
+  margin: 0 1.2rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--secondary);
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .footer {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+  .footer-links a {
+    margin: 0 0.5rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.2rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .footer {
+    padding: 1.5rem;
+  }
+}

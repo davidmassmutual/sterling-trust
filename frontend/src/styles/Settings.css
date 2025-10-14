@@ -1,0 +1,36 @@
+.settings {
+  padding: 3rem 2rem;
+  background-color: var(--background);
+  animation: fadeIn 0.7s ease-in;
+}
+
+.settings h2 {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.settings label {
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .settings {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .settings {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .settings {
+    padding: 3rem 2rem;
+  }
+}
