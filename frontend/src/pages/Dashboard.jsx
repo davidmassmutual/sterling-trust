@@ -1,4 +1,3 @@
-// src/pages/Dashboard.jsx
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -56,6 +55,8 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <LoanBanner />
+      <TransferPayment />
+      <DepositOptions />
       <AccountSummary accounts={userData?.accounts} />
       <Transactions transactions={userData?.transactions || [
         { date: '2025-10-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
@@ -64,14 +65,12 @@ function Dashboard() {
         { date: '2025-07-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
         { date: '2025-06-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
       ]} />
-      <TransferPayment />
-      <DepositOptions />
+      <CurrencyConverter />
       <Notifications notifications={sampleNotifications} />
       <SecurityDisplay
         lastLogin={userData?.lastLogin ? new Date(userData.lastLogin).toLocaleString() : 'N/A'}
         twoFactorEnabled={userData?.twoFactorEnabled || false}
       />
-      <CurrencyConverter />
       <Footer />
     </div>
   );

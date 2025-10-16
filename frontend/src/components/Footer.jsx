@@ -5,9 +5,9 @@ function Footer() {
     <footer className="footer">
       <p>FDIC Insured up to $250,000</p>
       <div className="footer-links">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/terms">Terms</a>
-        <a href="/contact">Contact</a>
+        <a href="/privacy"><i className="fas fa-lock"></i>Privacy Policy</a>
+        <a href="/terms"><i className="fas fa-file-alt"></i>Terms</a>
+        <a href="/contact"><i className="fas fa-envelope"></i>Contact</a>
       </div>
     </footer>
   );

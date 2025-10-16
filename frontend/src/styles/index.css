@@ -1,11 +1,12 @@
 :root {
-  --primary: #0A3D62;
-  --accent: #FFD700;
-  --secondary: #3E7CB1;
-  --background: #F9FAFB;
-  --text: #1F2A44;
-  --success: #22C55E;
-  --error: #EF4444;
+  --primary: #1E3A8A; /* Deep blue for trust */
+  --accent: #F59E0B; /* Vibrant amber for energy */
+  --secondary: #60A5FA; /* Light blue for accents */
+  --background: #F3F4F6; /* Soft gray for clean look */
+  --text: #111827; /* Dark gray for readability */
+  --success: #10B981; /* Green for success */
+  --error: #EF4444; /* Red for errors */
+  --card-bg: rgba(255, 255, 255, 0.9); /* Glassmorphic effect */
 }
 
 * {
@@ -18,6 +19,7 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: var(--background);
   color: var(--text);
+  overflow-x: hidden;
 }
 
 a {
@@ -33,11 +35,19 @@ button {
 
 button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Fade-in animation for components */
+/* Glassmorphic effect */
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Fade-in animation */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 

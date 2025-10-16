@@ -20,7 +20,7 @@ function CurrencyConverter() {
 
   return (
     <div className="currency-converter">
-      <h2>Currency Converter</h2>
+      <h2><i className="fas fa-exchange-alt"></i> Currency Converter</h2>
       <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" />
       <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
         <option value="USD">USD</option>
@@ -32,7 +32,7 @@ function CurrencyConverter() {
         <option value="USD">USD</option>
         <option value="BTC">BTC</option>
       </select>
-      <button onClick={convert}>Convert</button>
+      <button onClick={convert}><i className="fas fa-calculator"></i> Convert</button>
       {result && <p>{amount} {fromCurrency} = {result} {toCurrency}</p>}
     </div>
   );

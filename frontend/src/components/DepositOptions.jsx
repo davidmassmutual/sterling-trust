@@ -11,7 +11,7 @@ function DepositOptions() {
 
   return (
     <div className="deposit-options">
-      <h2>Deposit Options</h2>
+      <h2><i className="fas fa-wallet"></i> Deposit Options</h2>
       <select onChange={(e) => setMethod(e.target.value)}>
         <option value="paypal">PayPal</option>
         <option value="bitcoin">Bitcoin</option>
@@ -34,7 +34,7 @@ function DepositOptions() {
       {['paypal', 'cashapp', 'venmo'].includes(method) && (
         <div>
           <input type="text" placeholder="Enter amount" />
-          <button>Proceed to Payment</button>
+          <button><i className="fas fa-money-bill-wave"></i> Proceed to Payment</button>
         </div>
       )}
     </div>

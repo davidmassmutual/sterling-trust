@@ -1,6 +1,6 @@
-// src/App.jsx
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Activity from './pages/Activity';
@@ -12,26 +12,52 @@ import Navbar from './components/Navbar';
 import BottomNav from './components/BottomNav';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './styles/index.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userName, setUserName] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setIsAuthenticated(true);
+          setUserName(res.data.name); // Assuming backend returns { name: "User's Name", ... }
+        } catch (err) {
+          console.error(err);
+          localStorage.removeItem('token');
+          setIsAuthenticated(false);
+          navigate('/');
+        }
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    setUserName('');
+    navigate('/');
   };
 
   return (
-    <div>
-      {isAuthenticated && <Navbar handleLogout={handleLogout} />}
+    <div className="app">
+      {isAuthenticated && <Navbar handleLogout={handleLogout} userName={userName} />}
       <Routes>
-        <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Home setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
-        <Route path="/activity" element={isAuthenticated ? <Activity /> : <Navigate to="/" />} />
-        <Route path="/cards" element={isAuthenticated ? <VirtualCards /> : <Navigate to="/" />} />
-        <Route path="/loans" element={isAuthenticated ? <Loans /> : <Navigate to="/" />} />
-        <Route path="/settings" element={isAuthenticated ? <Settings /> : <Navigate to="/" />} />
-        <Route path="/support" element={isAuthenticated ? <Support /> : <Navigate to="/" />} />
+        <Route path="/" element={<Home setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Home setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/activity" element={isAuthenticated ? <Activity /> : <Home setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/cards" element={isAuthenticated ? <VirtualCards /> : <Home setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/loans" element={isAuthenticated ? <Loans /> : <Home setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/settings" element={isAuthenticated ? <Settings /> : <Home setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/support" element={isAuthenticated ? <Support /> : <Home setIsAuthenticated={setIsAuthenticated} />} />
       </Routes>
       {isAuthenticated && <BottomNav />}
       <ToastContainer />

@@ -1,44 +1,50 @@
 .reviews {
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
   text-align: center;
   background-color: var(--background);
   animation: fadeIn 0.7s ease-in;
 }
 
 .reviews h2 {
-  font-size: 2.2rem;
-  font-weight: 600;
-  margin-bottom: 2.5rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
   color: var(--text);
 }
 
 .reviews-list {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 2.5rem;
   flex-wrap: wrap;
 }
 
 .review-card {
-  background-color: white;
-  padding: 2rem;
+  background: var(--card-bg);
+  padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 320px;
-  transition: transform 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  max-width: 350px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .review-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.review-card p {
+  font-size: 1.1rem;
+  color: var(--text);
 }
 
 /* Phone */
 @media (max-width: 576px) {
   .reviews {
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
   }
   .reviews h2 {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
   .reviews-list {
     flex-direction: column;
@@ -52,7 +58,7 @@
 /* Tablet */
 @media (max-width: 768px) {
   .reviews {
-    padding: 2rem 1.5rem;
+    padding: 3rem 1.5rem;
   }
   .reviews-list {
     flex-direction: column;

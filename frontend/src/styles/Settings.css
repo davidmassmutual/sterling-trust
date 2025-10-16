@@ -1,36 +1,40 @@
 .settings {
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
   background-color: var(--background);
   animation: fadeIn 0.7s ease-in;
 }
 
 .settings h2 {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
+  margin-bottom: 1.5rem;
 }
 
 .settings label {
   font-weight: 500;
   color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Phone */
 @media (max-width: 576px) {
   .settings {
-    padding: 1.5rem 1rem;
+    padding: 2rem 1rem;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .settings {
-    padding: 2rem 1.5rem;
+    padding: 3rem 1.5rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .settings {
-    padding: 3rem 2rem;
+    padding: 4rem 2rem;
   }
 }
