@@ -10,6 +10,7 @@ import CurrencyConverter from '../components/CurrencyConverter';
 import LoanBanner from '../components/LoanBanner';
 import SecurityDisplay from '../components/SecurityDisplay';
 import '../styles/Dashboard.css';
+import img9 from '../images/WhatsApp Image 2025-10-17 at 16.15.27.jpeg';
 
 function Dashboard() {
   const [userData, setUserData] = useState(null);
@@ -70,7 +71,7 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <div className="navbar-brand-mobile">
-        <h1>Sterling Trust Bank</h1>
+        <h1>Sterling Trust Bank <img src={img9} alt=""  className='navbar-brand-image'/></h1>
         <p>Strength. Security. Stability.</p>
       </div>
       <div className="notifications-bell">
