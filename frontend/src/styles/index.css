@@ -1,12 +1,12 @@
 :root {
-  --primary: #1E3A8A; /* Deep blue for trust */
-  --accent: #F59E0B; /* Vibrant amber for energy */
-  --secondary: #60A5FA; /* Light blue for accents */
-  --background: #F3F4F6; /* Soft gray for clean look */
-  --text: #111827; /* Dark gray for readability */
-  --success: #10B981; /* Green for success */
-  --error: #EF4444; /* Red for errors */
-  --card-bg: rgba(255, 255, 255, 0.9); /* Glassmorphic effect */
+  --primary: #1E3A8A; /* Deep blue */
+  --accent: #F59E0B; /* Amber */
+  --secondary: #60A5FA; /* Light blue */
+  --background: #F3F4F6; /* Soft gray */
+  --text: #111827; /* Dark gray */
+  --success: #10B981; /* Green */
+  --error: #EF4444; /* Red */
+  --card-bg: rgba(255, 255, 255, 0.9); /* Glassmorphic */
 }
 
 * {
@@ -20,6 +20,7 @@ body {
   background-color: var(--background);
   color: var(--text);
   overflow-x: hidden;
+  width: 100vw;
 }
 
 a {
@@ -38,23 +39,40 @@ button:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Glassmorphic effect */
 .glass {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ensure containers don't overflow */
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Loading and error states */
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: var(--text);
 }
 
 /* Phone */
 @media (max-width: 576px) {
   body {
     font-size: 14px;
+  }
+  .container {
+    padding: 0 0.5rem;
   }
 }
 
@@ -69,5 +87,8 @@ button:hover {
 @media (min-width: 769px) {
   body {
     font-size: 16px;
+  }
+  .container {
+    max-width: 1200px;
   }
 }

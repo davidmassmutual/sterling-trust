@@ -1,20 +1,22 @@
 .transactions {
-  padding: 4rem 2rem;
+  padding: 3rem 1rem;
   animation: fadeIn 0.7s ease-in;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .transactions table {
   width: 100%;
   border-collapse: collapse;
   background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .transactions th,
 .transactions td {
-  padding: 1.5rem;
+  padding: 1.2rem;
   text-align: left;
   border-bottom: 1px solid #E5E7EB;
 }
@@ -33,33 +35,47 @@
   margin-right: 0.5rem;
 }
 
+.text-success {
+  color: var(--success);
+}
+
+.text-error {
+  color: var(--error);
+}
+
 /* Phone */
 @media (max-width: 576px) {
   .transactions {
-    padding: 2rem 1rem;
+    padding: 1.5rem 0.5rem;
+  }
+  .transactions table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
   .transactions th,
   .transactions td {
-    padding: 1rem;
-    font-size: 0.9rem;
+    padding: 0.8rem;
+    font-size: 0.8rem;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .transactions {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
   .transactions th,
   .transactions td {
-    padding: 1.2rem;
+    padding: 1rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
-  .transactions th,
-  .transactions td {
-    padding: 1.5rem;
+  .transactions {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }

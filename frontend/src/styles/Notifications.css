@@ -1,18 +1,23 @@
 .notifications {
-  padding: 4rem 2rem;
+  padding: 3rem 1rem;
   animation: fadeIn 0.7s ease-in;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .notifications ul {
   list-style: none;
   background: var(--card-bg);
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .notifications li {
-  padding: 1rem 0;
+  padding: 0.8rem 0;
   border-bottom: 1px solid #E5E7EB;
   color: var(--text);
   font-weight: 500;
@@ -25,23 +30,25 @@
 /* Phone */
 @media (max-width: 576px) {
   .notifications {
-    padding: 2rem 1rem;
+    padding: 1.5rem 0.5rem;
   }
   .notifications ul {
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .notifications {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .notifications {
-    padding: 4rem 2rem;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }

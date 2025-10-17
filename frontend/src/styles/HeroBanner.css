@@ -1,11 +1,12 @@
 .hero {
   text-align: center;
-  padding: 6rem 2rem;
+  padding: 4rem 1rem;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
   animation: fadeIn 0.7s ease-in;
   position: relative;
-  overflow: hidden;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .hero::before {
@@ -20,7 +21,7 @@
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
   position: relative;
@@ -28,21 +29,21 @@
 }
 
 .hero p {
-  font-size: 1.4rem;
-  margin-bottom: 3rem;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
   opacity: 0.9;
   position: relative;
   z-index: 1;
 }
 
 .hero-buttons button {
-  padding: 1rem 3rem;
-  margin: 0 1rem;
+  padding: 0.8rem 2rem;
+  margin: 0 0.5rem;
   background: linear-gradient(90deg, var(--accent), #FBBF24);
   border: none;
   color: var(--text);
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 1;
@@ -55,16 +56,16 @@
 /* Phone */
 @media (max-width: 576px) {
   .hero {
-    padding: 3rem 1rem;
+    padding: 2rem 0.5rem;
   }
   .hero h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
   .hero p {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   .hero-buttons button {
-    padding: 0.8rem 2rem;
+    padding: 0.7rem 1.5rem;
     margin: 0.5rem;
   }
 }
@@ -72,16 +73,18 @@
 /* Tablet */
 @media (max-width: 768px) {
   .hero {
-    padding: 4rem 1.5rem;
+    padding: 3rem 1rem;
   }
   .hero h1 {
-    font-size: 2.8rem;
+    font-size: 2.5rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .hero {
-    padding: 6rem 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }

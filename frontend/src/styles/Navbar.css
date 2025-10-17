@@ -2,12 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 1rem;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
   color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.5s ease-in;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .navbar-brand h1 {
@@ -41,34 +45,26 @@
   color: var(--accent);
 }
 
-.navbar-user {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
 .hamburger {
   display: none;
   background: none;
   border: none;
   color: white;
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 
 /* Mobile */
 @media (max-width: 576px) {
   .navbar {
-    flex-direction: row;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
   }
   .navbar-brand h1 {
     font-size: 1.4rem;
   }
-  .navbar-user {
-    font-size: 0.8rem;
-  }
   .hamburger {
     display: block;
+    order: 2;
   }
   .navbar-menu {
     display: none;
@@ -92,7 +88,7 @@
 /* Tablet */
 @media (max-width: 768px) {
   .navbar {
-    padding: 1.2rem 1.5rem;
+    padding: 1.2rem 1rem;
   }
   .navbar-menu {
     gap: 1rem;
@@ -102,6 +98,6 @@
 /* Laptop */
 @media (min-width: 769px) {
   .navbar {
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 2rem;
   }
 }

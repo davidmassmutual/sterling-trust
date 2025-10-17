@@ -1,55 +1,62 @@
 .account-summary {
-  padding: 4rem 2rem;
+  padding: 3rem 1rem;
   animation: fadeIn 0.7s ease-in;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .account-cards {
   display: flex;
-  gap: 2.5rem;
+  gap: 2rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .account-card {
   background: var(--card-bg);
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   flex: 1;
-  min-width: 280px;
+  min-width: 250px;
+  max-width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .account-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .account-card h3 {
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .account-card p {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: var(--primary);
 }
 
 /* Phone */
 @media (max-width: 576px) {
   .account-summary {
-    padding: 2rem 1rem;
+    padding: 1.5rem 0.5rem;
   }
   .account-cards {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+  }
+  .account-card {
+    min-width: 100%;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .account-summary {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
   .account-cards {
     flex-direction: column;
@@ -58,6 +65,11 @@
 
 /* Laptop */
 @media (min-width: 769px) {
+  .account-summary {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
   .account-cards {
     flex-direction: row;
   }

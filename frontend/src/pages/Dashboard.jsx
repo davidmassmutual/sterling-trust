@@ -45,19 +45,22 @@ function Dashboard() {
   ];
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error">Error: {error}</div>;
   }
 
   return (
     <div className="dashboard">
-      <LoanBanner />
-      <TransferPayment />
-      <DepositOptions />
+      <div className="welcome-message">
+        <h2><i className="fas fa-user"></i> Welcome, {userData?.name || 'User'}</h2>
+      </div>
       <AccountSummary accounts={userData?.accounts} />
+      <LoanBanner />
+      <DepositOptions />
+      <TransferPayment />
       <Transactions transactions={userData?.transactions || [
         { date: '2025-10-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
         { date: '2025-09-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
@@ -66,7 +69,6 @@ function Dashboard() {
         { date: '2025-06-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
       ]} />
       <CurrencyConverter />
-      <Notifications notifications={sampleNotifications} />
       <SecurityDisplay
         lastLogin={userData?.lastLogin ? new Date(userData.lastLogin).toLocaleString() : 'N/A'}
         twoFactorEnabled={userData?.twoFactorEnabled || false}

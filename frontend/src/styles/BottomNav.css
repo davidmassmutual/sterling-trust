@@ -5,9 +5,11 @@
   display: flex;
   justify-content: space-around;
   background: linear-gradient(180deg, var(--primary), var(--secondary));
-  padding: 1rem;
+  padding: 0.8rem;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .bottom-nav a {
@@ -35,14 +37,14 @@
 /* Tablets */
 @media (max-width: 768px) {
   .bottom-nav {
-    padding: 0.8rem;
+    padding: 0.7rem;
   }
 }
 
 /* Mobile */
 @media (max-width: 576px) {
   .bottom-nav {
-    padding: 0.6rem;
+    padding: 0.5rem;
     font-size: 0.8rem;
   }
   .bottom-nav a {

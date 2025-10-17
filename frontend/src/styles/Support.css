@@ -1,7 +1,9 @@
 .support {
-  padding: 4rem 2rem;
+  padding: 3rem 1rem;
   background-color: var(--background);
   animation: fadeIn 0.7s ease-in;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .support h2 {
@@ -11,11 +13,11 @@
 }
 
 .support button {
-  padding: 1rem;
+  padding: 0.9rem;
   background: linear-gradient(90deg, var(--accent), #FBBF24);
   color: var(--text);
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 600;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -31,7 +33,7 @@
 /* Phone */
 @media (max-width: 576px) {
   .support {
-    padding: 2rem 1rem;
+    padding: 1.5rem 0.5rem;
   }
   .support button {
     padding: 0.8rem;
@@ -41,13 +43,15 @@
 /* Tablet */
 @media (max-width: 768px) {
   .support {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .support {
-    padding: 4rem 2rem;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }

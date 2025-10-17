@@ -1,9 +1,12 @@
 .security-display {
-  padding: 2.5rem;
+  padding: 2rem 1rem;
   background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   animation: fadeIn 0.7s ease-in;
+  max-width: 450px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .security-display h2 {
@@ -24,20 +27,22 @@
 /* Phone */
 @media (max-width: 576px) {
   .security-display {
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .security-display {
-    padding: 2rem;
+    padding: 1.5rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .security-display {
-    padding: 2.5rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }

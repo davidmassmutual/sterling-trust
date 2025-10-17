@@ -1,10 +1,12 @@
 .footer {
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 1rem;
   background: var(--primary);
   color: white;
-  margin-top: 4rem;
+  margin-top: 3rem;
   animation: fadeIn 0.5s ease-in;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .footer-links {
@@ -13,7 +15,7 @@
 
 .footer-links a {
   color: var(--accent);
-  margin: 0 1.5rem;
+  margin: 0 1rem;
   font-weight: 500;
   transition: color 0.3s ease;
 }
@@ -29,7 +31,7 @@
 /* Phone */
 @media (max-width: 576px) {
   .footer {
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     font-size: 0.8rem;
   }
   .footer-links a {
@@ -40,13 +42,15 @@
 /* Tablet */
 @media (max-width: 768px) {
   .footer {
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .footer {
-    padding: 2rem;
+    padding: 2rem 2rem;
+    max-width: 1200px;
+    margin: 3rem auto 0;
   }
 }

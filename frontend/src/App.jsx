@@ -16,7 +16,6 @@ import './styles/index.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userName, setUserName] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,11 +23,10 @@ function App() {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
+          await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setIsAuthenticated(true);
-          setUserName(res.data.name); // Assuming backend returns { name: "User's Name", ... }
         } catch (err) {
           console.error(err);
           localStorage.removeItem('token');
@@ -43,13 +41,12 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
-    setUserName('');
     navigate('/');
   };
 
   return (
     <div className="app">
-      {isAuthenticated && <Navbar handleLogout={handleLogout} userName={userName} />}
+      {isAuthenticated && <Navbar handleLogout={handleLogout} />}
       <Routes>
         <Route path="/" element={<Home setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Home setIsAuthenticated={setIsAuthenticated} />} />

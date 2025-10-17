@@ -1,7 +1,9 @@
 .settings {
-  padding: 4rem 2rem;
+  padding: 3rem 1rem;
   background-color: var(--background);
   animation: fadeIn 0.7s ease-in;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .settings h2 {
@@ -21,20 +23,22 @@
 /* Phone */
 @media (max-width: 576px) {
   .settings {
-    padding: 2rem 1rem;
+    padding: 1.5rem 0.5rem;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
   .settings {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .settings {
-    padding: 4rem 2rem;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }

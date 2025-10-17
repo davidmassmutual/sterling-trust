@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-function Navbar({ handleLogout, userName }) {
+function Navbar({ handleLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -16,7 +16,7 @@ function Navbar({ handleLogout, userName }) {
         <p>Strength. Security. Stability.</p>
       </div>
       <button className="hamburger" onClick={toggleMenu}>
-        ☰
+        <i className="fas fa-bars"></i>
       </button>
       <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
         <li><Link to="/dashboard" onClick={toggleMenu}>Accounts</Link></li>
@@ -27,9 +27,6 @@ function Navbar({ handleLogout, userName }) {
         <li><Link to="/settings" onClick={toggleMenu}>Settings</Link></li>
         <li><button onClick={() => { handleLogout(); toggleMenu(); }}>Logout</button></li>
       </ul>
-      <div className="navbar-user">
-        <p>Welcome, {userName || 'User'}</p>
-      </div>
     </nav>
   );
 }
