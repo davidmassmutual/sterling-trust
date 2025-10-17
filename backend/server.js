@@ -7,16 +7,28 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 const app = express();
+
+// Configure CORS to allow multiple origins
+const allowedOrigins = [
+  'https://sterling-trust.onrender.com',
+  'https://sterling-trust.vercel.app',
+  'http://localhost:5173', // For local development
+];
+
 app.use(cors({
-  origin: 'https://sterling-trust.onrender.com',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
 
-// Serve uploads
 app.use('/uploads', express.static('uploads'));
 
-// MongoDB connection
 const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
   throw new Error('MONGO_URI is not defined in .env file');
@@ -28,7 +40,7 @@ mongoose.connect(MONGO_URI)
     process.exit(1);
   });
 
-// Routes
+console.log('Loading routes...');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const transactionRoutes = require('./routes/transactions');
@@ -36,8 +48,8 @@ const transactionRoutes = require('./routes/transactions');
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/transactions', transactionRoutes);
+console.log('Routes loaded');
 
-// Test endpoint to verify server
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 5000;
