@@ -2,7 +2,7 @@
   padding: 1rem 2rem 1rem; /* Match provided */
   display: grid;
   gap: 1rem; /* Match provided */
-  background: linear-gradient(135deg, var(--background) 0%, #BFDBFE 100%);
+  /* background: linear-gradient(135deg, var(--background) 0%, #BFDBFE 100%); */
   min-height: calc(100vh - 80px);
   position: relative;
   animation: fadeIn 0.7s ease-in;
