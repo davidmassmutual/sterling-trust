@@ -1,23 +1,22 @@
-// sterling-trust-backend/models/User.js
+// backend/models/User.js
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  accounts: {
-    checking: { balance: { type: Number, default: 0 } },
-    savings: { balance: { type: Number, default: 0 } },
-  },
-  transactions: [{
-    date: { type: Date, default: Date.now },
-    description: String,
-    amount: Number,
-    type: { type: String, enum: ['credit', 'debit'] },
-    status: { type: String, default: 'Posted' },
-  }],
-  lastLogin: { type: Date },
+  phone: { type: String, default: '' },
+  address: { type: String, default: '' },
   twoFactorEnabled: { type: Boolean, default: false },
+  notifications: {
+    email: { type: Boolean, default: true },
+    sms: { type: Boolean, default: false },
+    push: { type: Boolean, default: true },
+  },
+  currency: { type: String, default: 'USD' },
+  theme: { type: String, default: 'light' },
+  isAdmin: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('User', userSchema);

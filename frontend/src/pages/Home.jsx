@@ -57,7 +57,9 @@ function Home({ setIsAuthenticated }) {
           alt="Banking Hero"
           className="hero-image"
         />
+         
         <div className="hero-content">
+          
           <h1>Secure Banking, Simplified</h1>
           <p>Join Sterling Trust Bank for seamless, secure, and innovative banking solutions.</p>
           <div className="hero-buttons">

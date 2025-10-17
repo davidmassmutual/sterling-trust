@@ -1,5 +1,6 @@
+// src/App.jsx
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -9,21 +10,33 @@ import Transactions from './pages/Transactions';
 import Loans from './pages/Loans';
 import Support from './pages/Support';
 import Settings from './pages/Settings';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import TransferPayment from './pages/TransferPayment';
 import VirtualCards from './pages/VirtualCards';
 import NotificationsPage from './pages/NotificationsPage';
-import ErrorBoundary from './components/ErrorBoundary';
-import Footer from './components/Footer';
 import DepositDetails from './pages/DepositDetails';
+import Admin from './pages/Admin';
+import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles/App.css'; // Ensure App.css exists
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
+    setIsAdmin(false);
   };
 
   useEffect(() => {
@@ -31,17 +44,17 @@ function App() {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
+          const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setIsAuthenticated(true);
+          setIsAdmin(res.data.isAdmin || false);
         } catch (err) {
           console.error('Token validation failed:', err);
           localStorage.removeItem('token');
           setIsAuthenticated(false);
+          setIsAdmin(false);
         }
-      } else {
-        setIsAuthenticated(false);
       }
     };
     validateToken();
@@ -51,6 +64,7 @@ function App() {
     <Router>
       <ErrorBoundary>
         <div className="app">
+          <ScrollToTop />
           <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
           <div className="main-content">
             <Routes>
@@ -95,10 +109,14 @@ function App() {
                 path="/deposit-details"
                 element={isAuthenticated ? <DepositDetails /> : <Navigate to="/" />}
               />
+              <Route
+                path="/admin"
+                element={isAuthenticated && isAdmin ? <Admin /> : <Navigate to="/dashboard" />}
+              />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-        <Footer/>
           </div>
+          <Footer />
           <ToastContainer />
         </div>
       </ErrorBoundary>
