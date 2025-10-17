@@ -12,11 +12,11 @@
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  animation: fadeIn 0.5s ease-in;
 }
 
 .navbar-brand {
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .navbar-brand h1 {
@@ -27,6 +27,22 @@
 .navbar-brand p {
   font-size: 0.9rem;
   opacity: 0.9;
+}
+
+.close-menu {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+}
+
+.close-menu:hover {
+  color: var(--accent);
 }
 
 .navbar-menu {
@@ -67,26 +83,47 @@
 }
 
 .hamburger {
-  display: none;
-  background: none;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
   border: none;
   color: var(--primary);
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   position: fixed;
-  top: 1rem;
-  left: 1rem;
+  top: 0.8rem;
+  left: 0.8rem;
   z-index: 1100;
+  padding: 0.5rem;
+  border-radius: 50%;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hamburger:hover {
+  transform: scale(1.2);
+}
+
+.hamburger i {
+  animation: bounce 1.5s infinite;
 }
 
 /* Mobile */
 @media (max-width: 576px) {
   .navbar {
+    width: 70%;
+    height: 100vh;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-right: 2px solid var(--highlight);
     transform: translateX(-100%);
-    width: 200px;
+    padding: 2rem 1.5rem;
+    z-index: 1000;
+    animation: slideInLeft 0.3s ease-out;
   }
   .navbar.active {
     transform: translateX(0);
+  }
+  .close-menu {
+    display: block;
   }
   .hamburger {
     display: block;
@@ -94,13 +131,22 @@
   .navbar-brand h1 {
     font-size: 1.4rem;
   }
+  .navbar-menu li a,
+  .navbar-menu li button {
+    font-size: 1.1rem;
+    padding: 0.8rem;
+  }
 }
 
 /* Tablet */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (min-width: 577px) {
   .navbar {
     width: 200px;
     padding: 1.5rem 1rem;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+  }
+  .hamburger, .close-menu {
+    display: none;
   }
 }
 
@@ -110,4 +156,18 @@
     width: 250px;
     padding: 2rem 1.5rem;
   }
+  .hamburger, .close-menu {
+    display: none;
+  }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-5px); }
+  60% { transform: translateY(-3px); }
 }

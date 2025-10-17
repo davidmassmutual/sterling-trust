@@ -2,7 +2,7 @@
   --primary: #1E3A8A;
   --accent: #F59E0B;
   --secondary: #60A5FA;
-  --highlight: #8B5CF6; /* New vibrant purple */
+  --highlight: #8B5CF6;
   --background: #F3F4F6;
   --text: #111827;
   --card-bg: rgba(255, 255, 255, 0.9);
@@ -60,6 +60,16 @@ button:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
   40% { transform: translateY(-5px); }
@@ -68,7 +78,7 @@ button:hover {
 
 .main-content {
   margin-left: 250px;
-  padding-bottom: 80px; /* Space for fixed footer */
+  padding-bottom: 80px;
 }
 
 /* Mobile */
@@ -81,7 +91,7 @@ button:hover {
 }
 
 /* Tablet */
-@media (max-width: 768px) {
+@media (max-width: 768px) and (min-width: 577px) {
   .main-content {
     margin-left: 200px;
     padding: 1.5rem;

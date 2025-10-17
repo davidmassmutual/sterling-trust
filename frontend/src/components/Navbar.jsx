@@ -25,12 +25,15 @@ function Navbar({ handleLogout }) {
   return (
     <>
       <button className="hamburger" onClick={toggleMenu}>
-        <i className="fas fa-bars"></i>
+        <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
       </button>
       <nav className={`navbar ${isMenuOpen ? 'active' : ''}`}>
         <div className="navbar-brand">
           <h1>Sterling Trust Bank</h1>
           <p>Strength. Security. Stability.</p>
+          <button className="close-menu" onClick={toggleMenu}>
+            <i className="fas fa-times"></i>
+          </button>
         </div>
         <ul className="navbar-menu">
           {navItems.map((item) => (

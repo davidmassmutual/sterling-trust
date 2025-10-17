@@ -1,53 +1,111 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import HeroBanner from '../components/HeroBanner';
-import CustomerReviews from '../components/CustomerReviews';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 import Footer from '../components/Footer';
 import '../styles/Home.css';
-import { toast } from 'react-toastify';
 
 function Home({ setIsAuthenticated }) {
-  const [isSignup, setIsSignup] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const endpoint = isSignup ? '/api/auth/signup' : '/api/auth/login';
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}${endpoint}`, form);
-      localStorage.setItem('token', res.data.token);
-      setIsAuthenticated(true);
-      navigate('/dashboard');
-      toast.success(isSignup ? 'Signup successful!' : 'Login successful!');
+      const url = isSignUp
+        ? `${import.meta.env.VITE_API_URL}/api/auth/register`
+        : `${import.meta.env.VITE_API_URL}/api/auth/login`;
+      const res = await axios.post(url, formData);
+      if (res.data.token) {
+        localStorage.setItem('token', res.data.token);
+        setIsAuthenticated(true);
+        navigate('/dashboard');
+        toast.success(isSignUp ? 'Registration successful!' : 'Login successful!');
+      }
     } catch (err) {
-      toast.error(err.response.data.msg || 'Error occurred');
+      toast.error(err.response?.data?.message || 'An error occurred');
     }
+  };
+
+  const toggleAuthMode = () => {
+    setIsSignUp(!isSignUp);
+    setFormData({ name: '', email: '', password: '' });
   };
 
   return (
     <div className="home">
-      <HeroBanner />
-      <div className="auth-form">
-        <h2>{isSignup ? <><i className="fas fa-user-plus"></i> Sign Up</> : <><i className="fas fa-sign-in-alt"></i> Log In</>}</h2>
-        <form onSubmit={handleSubmit}>
-          {isSignup && (
-            <input type="text" name="name" placeholder="Full Name" onChange={handleChange} required />
+      <section className="hero">
+        <h1>Secure Banking, Simplified</h1>
+        <p>Experience seamless banking with Sterling Trust Bank.</p>
+        <div className="hero-buttons">
+          <button onClick={() => setIsSignUp(true)} className="auth-button signup">
+            <i className="fas fa-user-plus"></i> Sign Up
+          </button>
+          <button onClick={() => setIsSignUp(false)} className="auth-button login">
+            <i className="fas fa-sign-in-alt"></i> Login
+          </button>
+        </div>
+      </section>
+      <section className="auth-section">
+        <h2>{isSignUp ? 'Join Us Today' : 'Welcome Back'}</h2>
+        <form onSubmit={handleSubmit} className="auth-form">
+          {isSignUp && (
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
           )}
-          <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-          <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-          <button type="submit"><i className="fas fa-arrow-right"></i> {isSignup ? 'Sign Up' : 'Log In'}</button>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+          <button type="submit">
+            <i className={`fas ${isSignUp ? 'fa-user-plus' : 'fa-sign-in-alt'}`}></i>
+            {isSignUp ? 'Sign Up' : 'Login'}
+          </button>
+          <p onClick={toggleAuthMode}>
+            {isSignUp ? 'Already have an account? Log In' : "Don't have an account? Sign Up"}
+          </p>
         </form>
-        <p onClick={() => setIsSignup(!isSignup)}>
-          {isSignup ? 'Already have an account? Log In' : 'Need an account? Sign Up'}
-        </p>
-      </div>
-      <CustomerReviews />
+      </section>
+      <section className="reviews-section">
+        <h2>Customer Reviews</h2>
+        <div className="reviews">
+          <div className="review-card">
+            <p>"Sterling Trust is reliable and user-friendly!"</p>
+            <span>– Jane Doe</span>
+          </div>
+          <div className="review-card">
+            <p>"Best banking app I've used. Highly secure."</p>
+            <span>– John Smith</span>
+          </div>
+        </div>
+      </section>
       <Footer />
     </div>
   );
