@@ -1,9 +1,9 @@
 .footer {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), #168db1);
   color: white;
   padding: 2rem 1.5rem;
-  width: 100%;
-  
+  /* width: 100%; */
+  margin-top: 2rem; /* Gap for short pages */
 }
 
 .footer-content {
@@ -11,7 +11,6 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1.5rem;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -57,7 +56,6 @@
 
 .footer-bottom {
   text-align: center;
-  margin-top: 2rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -67,11 +65,30 @@
   opacity: 0.8;
 }
 
+/* Desktop: Adjust for navbar offset */
+@media (min-width: 769px) {
+  .footer {
+    margin-left: 250px; /* Match navbar width */
+    width: calc(100% - 250px);
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) and (min-width: 577px) {
+  .footer {
+    margin-left: 200px; /* Match navbar width */
+    width: calc(100% - 200px);
+    padding: 1.8rem 1.2rem;
+  }
+}
+
 /* Mobile */
 @media (max-width: 576px) {
   .footer {
     padding: 1.5rem 1rem;
-    margin-top: 1.5rem; /* Smaller gap for mobile */
+    margin-top: 1.5rem;
+    margin-left: 0; /* No offset */
+    width: 100%;
   }
   .footer-section h3 {
     font-size: 1.3rem;
@@ -82,12 +99,5 @@
   .footer-section p,
   .footer-section ul li a {
     font-size: 0.85rem;
-  }
-}
-
-/* Tablet */
-@media (max-width: 768px) and (min-width: 577px) {
-  .footer {
-    padding: 1.8rem 1.2rem;
   }
 }

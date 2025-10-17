@@ -9,7 +9,6 @@ function Support() {
       <button onClick={() => window.smartsupp('chat:open')}>
         <i className="fas fa-comment-dots"></i> Talk to an Agent
       </button>
-      <Footer />
     </div>
   );
 }

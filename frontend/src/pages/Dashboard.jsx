@@ -22,15 +22,18 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
+        console.log('Token:', token); // Debug
         if (!token) {
           throw new Error('No authentication token found');
         }
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        console.log('User data:', res.data); // Debug
         setUserData(res.data);
         setLoading(false);
       } catch (err) {
+        console.error('Fetch error:', err.response || err); // Debug
         if (err.response?.status === 401) {
           localStorage.removeItem('token');
           toast.error('Session expired. Please log in again.');
@@ -65,6 +68,10 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
+      <div className="navbar-brand-mobile">
+        <h1>Sterling Trust Bank</h1>
+        <p>Strength. Security. Stability.</p>
+      </div>
       <div className="notifications-bell">
         <button onClick={toggleNotifications} className="bell-icon">
           <i className="fas fa-bell"></i>
@@ -107,7 +114,6 @@ function Dashboard() {
           twoFactorEnabled={userData?.twoFactorEnabled || false}
         />
       </div>
-      <Footer />
     </div>
   );
 }

@@ -42,7 +42,6 @@ function Activity() {
   return (
     <div>
       <Transactions transactions={transactions} />
-      <Footer />
     </div>
   );
 }

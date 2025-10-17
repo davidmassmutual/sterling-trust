@@ -7,7 +7,6 @@ function Loans() {
       <LoanBanner />
       <h2>Loan Options</h2>
       <p>Explore loan options and apply.</p>
-      <Footer />
     </div>
   );
 }

@@ -128,33 +128,33 @@ button:hover {
 }
 
 .main-content {
-  margin-left: 250px;
-  padding-bottom: 80px;
+  flex-grow: 1;
+  width: 100%;
+  margin: 0; /* Ensure no margin */
+  padding: 0; /* Remove default padding */
 }
+
 
 /* Mobile */
 @media (max-width: 576px) {
   .main-content {
-    margin-left: 0;
-    padding: 1rem;
-    padding-bottom: 60px;
+    margin-left: 0; /* No offset, navbar is overlay */
+    width: 100%;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) and (min-width: 577px) {
-  .main-content {
-    margin-left: 200px;
-    padding: 1.5rem;
-    padding-bottom: 70px;
+    .main-content {
+    margin-left: 200px; /* Navbar is 200px on tablet */
+    width: calc(100% - 200px);
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
   .main-content {
-    margin-left: 250px;
-    padding: 2rem;
-    padding-bottom: 80px;
+    margin-left: 250px; /* Offset for navbar width */
+    width: calc(100% - 250px); /* Adjust content width */
   }
 }

@@ -13,7 +13,6 @@ function Settings() {
         <input type="checkbox" checked={twoFactor} onChange={() => setTwoFactor(!twoFactor)} />
         Enable Two-Factor Authentication
       </label>
-      <Footer />
     </div>
   );
 }

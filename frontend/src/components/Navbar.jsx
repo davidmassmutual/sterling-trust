@@ -32,7 +32,7 @@ function Navbar({ handleLogout, isAuthenticated }) {
       <nav className={`navbar ${isMenuOpen ? 'active' : ''}`}>
         <div className="navbar-brand">
           <h1>Sterling Trust Bank</h1>
-          <p>Strength-Security-Stability</p>
+          <p>Strength. Security. Stability.</p>
           <button className="close-menu" onClick={toggleMenu}>
             <i className="fas fa-times"></i>
           </button>

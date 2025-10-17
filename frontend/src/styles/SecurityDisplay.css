@@ -11,7 +11,7 @@
 
 .security-display h2 {
   font-weight: 600;
-  color: var(--text);
+  color: var(--error);
   margin-bottom: 1rem;
 }
 

@@ -66,7 +66,6 @@ function NotificationsPage() {
           <p>No notifications available.</p>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

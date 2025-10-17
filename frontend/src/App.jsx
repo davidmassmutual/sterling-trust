@@ -15,6 +15,8 @@ import TransferPayment from './pages/TransferPayment';
 import VirtualCards from './pages/VirtualCards';
 import NotificationsPage from './pages/NotificationsPage';
 import ErrorBoundary from './components/ErrorBoundary';
+import Footer from './components/Footer';
+import DepositDetails from './pages/DepositDetails';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
@@ -89,8 +91,13 @@ function App() {
                 path="/settings"
                 element={isAuthenticated ? <Settings /> : <Navigate to="/" />}
               />
+              <Route
+                path="/deposit-details"
+                element={isAuthenticated ? <DepositDetails /> : <Navigate to="/" />}
+              />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
+        <Footer/>
           </div>
           <ToastContainer />
         </div>

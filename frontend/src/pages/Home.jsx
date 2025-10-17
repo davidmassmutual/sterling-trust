@@ -25,6 +25,7 @@ function Home({ setIsAuthenticated }) {
         ? `${import.meta.env.VITE_API_URL}/api/auth/register`
         : `${import.meta.env.VITE_API_URL}/api/auth/login`;
       const res = await axios.post(url, formData);
+      console.log('Login response:', res.data); // Debug
       if (res.data.token) {
         localStorage.setItem('token', res.data.token);
         setIsAuthenticated(true);
@@ -44,15 +45,22 @@ function Home({ setIsAuthenticated }) {
   return (
     <div className="home">
       <section className="hero">
-        <h1>Secure Banking, Simplified</h1>
-        <p>Experience seamless banking with Sterling Trust Bank.</p>
-        <div className="hero-buttons">
-          <button onClick={() => setIsSignUp(true)} className="auth-button signup">
-            <i className="fas fa-user-plus"></i> Sign Up
-          </button>
-          <button onClick={() => setIsSignUp(false)} className="auth-button login">
-            <i className="fas fa-sign-in-alt"></i> Login
-          </button>
+        <img
+          src="https://images.unsplash.com/photo-1664575196045-4b7d4f62c398?q=80&w=2070&auto=format&fit=crop"
+          alt="Banking Hero"
+          className="hero-image"
+        />
+        <div className="hero-content">
+          <h1>Secure Banking, Simplified</h1>
+          <p>Join Sterling Trust Bank for seamless, secure, and innovative banking solutions.</p>
+          <div className="hero-buttons">
+            <button onClick={() => setIsSignUp(true)} className="auth-button signup">
+              <i className="fas fa-user-plus"></i> Sign Up
+            </button>
+            <button onClick={() => setIsSignUp(false)} className="auth-button login">
+              <i className="fas fa-sign-in-alt"></i> Login
+            </button>
+          </div>
         </div>
       </section>
       <section className="auth-section">
@@ -93,6 +101,47 @@ function Home({ setIsAuthenticated }) {
           </p>
         </form>
       </section>
+      <section className="features-section">
+        <h2>Why Choose Sterling Trust?</h2>
+        <div className="features">
+          <div className="feature-card">
+            <img
+              src="https://images.unsplash.com/photo-1516321310762-4794370e6a66?q=80&w=100&auto=format"
+              alt="Fast Transfers"
+              className="feature-image"
+            />
+            <h3>Fast Transfers</h3>
+            <p>Send money instantly to anyone, anywhere.</p>
+          </div>
+          <div className="feature-card">
+            <img
+              src="https://images.unsplash.com/photo-1516321310762-4794370e6a66?q=80&w=100&auto=format"
+              alt="Secure Banking"
+              className="feature-image"
+            />
+            <h3>Secure Banking</h3>
+            <p>Advanced encryption for your peace of mind.</p>
+          </div>
+          <div className="feature-card">
+            <img
+              src="https://images.unsplash.com/photo-1516321310762-4794370e6a66?q=80&w=100&auto=format"
+              alt="24/7 Support"
+              className="feature-image"
+            />
+            <h3>24/7 Support</h3>
+            <p>Our team is here for you anytime.</p>
+          </div>
+        </div>
+      </section>
+      <section className="security-section">
+        <h2>Your Security, Our Priority</h2>
+        <p>Bank with confidence knowing your data is protected with state-of-the-art security measures.</p>
+        <img
+          src="https://images.unsplash.com/photo-1653669486932-5e336f1b1567?q=80&w=2070&auto=format&fit=crop"
+          alt="Security"
+          className="security-image"
+        />
+      </section>
       <section className="reviews-section">
         <h2>Customer Reviews</h2>
         <div className="reviews">
@@ -105,6 +154,12 @@ function Home({ setIsAuthenticated }) {
             <span>– John Smith</span>
           </div>
         </div>
+      </section>
+      <section className="cta-section">
+        <h2>Ready to Start Banking?</h2>
+        <button onClick={() => setIsSignUp(true)} className="cta-button">
+          Get Started Now
+        </button>
       </section>
       <Footer />
     </div>
