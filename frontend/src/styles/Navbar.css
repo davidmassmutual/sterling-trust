@@ -136,7 +136,6 @@
   .hamburger {
     display: block;
     background: none;
-    backdrop-filter: blur(10px);
     border: none;
   }
   .navbar {

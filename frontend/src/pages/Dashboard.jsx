@@ -96,7 +96,9 @@ function Dashboard() {
       <div className="welcome-section">
         <h1>Welcome, {userData?.name || 'Lillian'}</h1>
       </div>
+      <div className="account-sum">
       <AccountSummary accounts={userData?.accounts} />
+      </div>
       <div className="action-buttons">
         <div className="action-button-grid">
           <Link to="/deposit-details" className="action-button">

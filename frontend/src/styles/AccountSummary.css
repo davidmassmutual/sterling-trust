@@ -1,5 +1,4 @@
 .account-summary {
- padding: 4rem 2rem 8rem;
  animation: fadeIn 0.7s ease-in;
  min-height: calc(100vh - 80px);
 }
