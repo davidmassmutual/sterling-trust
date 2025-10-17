@@ -8,7 +8,6 @@ import TransferPayment from '../pages/TransferPayment';
 import CurrencyConverter from '../components/CurrencyConverter';
 import LoanBanner from '../components/LoanBanner';
 import SecurityDisplay from '../components/SecurityDisplay';
-import Footer from '../components/Footer';
 import '../styles/Dashboard.css';
 
 function Dashboard() {
@@ -98,6 +97,23 @@ function Dashboard() {
         <h1>Welcome, {userData?.name || 'Lillian'}</h1>
       </div>
       <AccountSummary accounts={userData?.accounts} />
+      <div className="action-buttons">
+        <div className="action-button-grid">
+          <Link to="/deposit-details" className="action-button">
+            <i className="fas fa-money-check-alt"></i> Deposit
+          </Link>
+          <Link to="/loans" className="action-button">
+            <i className="fas fa-hand-holding-usd"></i> Loan
+          </Link>
+          <Link to="/transfer" className="action-button">
+            <i className="fas fa-exchange-alt"></i> Transfer
+          </Link>
+          <Link to="/cards" className="action-button">
+            <i className="fas fa-credit-card"></i> Card
+          </Link>
+        </div>
+        <LoanBanner />
+      </div>
       <div className="quick-actions">
         <div className="action-card">
           <DepositOptions />
@@ -108,7 +124,6 @@ function Dashboard() {
       </div>
       <div className="secondary-features">
         <CurrencyConverter />
-        <LoanBanner />
         <SecurityDisplay
           lastLogin={userData?.lastLogin ? new Date(userData.lastLogin).toLocaleString() : 'N/A'}
           twoFactorEnabled={userData?.twoFactorEnabled || false}

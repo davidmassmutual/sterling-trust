@@ -135,7 +135,7 @@
 @media (max-width: 576px) {
   .hamburger {
     display: block;
-    background: transparent;
+    background: none;
     backdrop-filter: blur(10px);
     border: none;
   }

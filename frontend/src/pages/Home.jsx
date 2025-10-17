@@ -2,8 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Footer from '../components/Footer';
 import '../styles/Home.css';
+import img1 from "../images/hero2.jpg";
+import img2 from "../images/hero1.jpg";
+import img3 from "../images/65aa41dfd56eff4889757fcc_customer service in banking_cover image.jpg";
+import img4 from "../images/8523a5f867ed9cbc1e1944bf7d2c25b340b6550a.png";
+import img5 from "../images/fast.webp";
+import img6 from "../images/Mobile-Banking-App-Features.jpg";
+import img7 from "../images/support.png";
+
 
 function Home({ setIsAuthenticated }) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -46,7 +53,7 @@ function Home({ setIsAuthenticated }) {
     <div className="home">
       <section className="hero">
         <img
-          src="https://images.unsplash.com/photo-1664575196045-4b7d4f62c398?q=80&w=2070&auto=format&fit=crop"
+          src={img5}
           alt="Banking Hero"
           className="hero-image"
         />
@@ -106,7 +113,7 @@ function Home({ setIsAuthenticated }) {
         <div className="features">
           <div className="feature-card">
             <img
-              src="https://images.unsplash.com/photo-1516321310762-4794370e6a66?q=80&w=100&auto=format"
+              src={img5}
               alt="Fast Transfers"
               className="feature-image"
             />
@@ -115,7 +122,7 @@ function Home({ setIsAuthenticated }) {
           </div>
           <div className="feature-card">
             <img
-              src="https://images.unsplash.com/photo-1516321310762-4794370e6a66?q=80&w=100&auto=format"
+              src={img7}
               alt="Secure Banking"
               className="feature-image"
             />
@@ -124,7 +131,7 @@ function Home({ setIsAuthenticated }) {
           </div>
           <div className="feature-card">
             <img
-              src="https://images.unsplash.com/photo-1516321310762-4794370e6a66?q=80&w=100&auto=format"
+              src={img3}
               alt="24/7 Support"
               className="feature-image"
             />
@@ -137,7 +144,7 @@ function Home({ setIsAuthenticated }) {
         <h2>Your Security, Our Priority</h2>
         <p>Bank with confidence knowing your data is protected with state-of-the-art security measures.</p>
         <img
-          src="https://images.unsplash.com/photo-1653669486932-5e336f1b1567?q=80&w=2070&auto=format&fit=crop"
+          src={img6}
           alt="Security"
           className="security-image"
         />
@@ -161,7 +168,6 @@ function Home({ setIsAuthenticated }) {
           Get Started Now
         </button>
       </section>
-      <Footer />
     </div>
   );
 }
