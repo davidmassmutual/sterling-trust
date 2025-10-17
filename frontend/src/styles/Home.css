@@ -1,98 +1,102 @@
 .home {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: var(--background);
-  max-width: 100%;
-  overflow-x: hidden;
+ display: flex;
+ flex-direction: column;
+ min-height: calc(100vh - 80px); /* Account for footer */
+ background-color: var(--background);
 }
 
 .auth-form {
-  max-width: 450px;
-  width: 100%;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: var(--card-bg);
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.7s ease-in;
+ max-width: 500px;
+ margin: 3rem auto;
+ padding: 2.5rem;
+ background: var(--card-bg);
+ border-radius: 12px;
+ box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+ animation: fadeIn 0.7s ease-in;
 }
 
 .auth-form h2 {
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 1.5rem;
+ font-weight: 700;
+ color: var(--text);
+ margin-bottom: 1.5rem;
 }
 
 .auth-form form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+ display: flex;
+ flex-direction: column;
+ gap: 1.5rem;
 }
 
 .auth-form input {
-  padding: 0.9rem;
-  border: 1px solid #E5E7EB;
-  border-radius: 8px;
-  font-size: 1rem;
-  background: white;
-  width: 100%;
+ padding: 1rem;
+ border: 1px solid #E5E7EB;
+ border-radius: 10px;
+ font-size: 1rem;
+ background: white;
 }
 
 .auth-form button {
-  padding: 0.9rem;
-  background: linear-gradient(90deg, var(--accent), #FBBF24);
-  color: var(--text);
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+ padding: 1rem;
+ background: linear-gradient(90deg, var(--accent), #FBBF24);
+ color: var(--text);
+ border: none;
+ border-radius: 10px;
+ font-weight: 600;
+ box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .auth-form button:hover {
-  background: linear-gradient(90deg, #FBBF24, var(--accent));
+ background: linear-gradient(90deg, #FBBF24, var(--accent));
 }
 
 .auth-form button i {
-  margin-right: 0.5rem;
+ margin-right: 0.5rem;
 }
 
 .auth-form p {
-  cursor: pointer;
-  color: var(--primary);
-  text-align: center;
-  font-weight: 500;
+ cursor: pointer;
+ color: var(--primary);
+ text-align: center;
+ font-weight: 500;
 }
 
 .auth-form p:hover {
-  color: var(--secondary);
+ color: var(--secondary);
 }
 
 /* Phone */
 @media (max-width: 576px) {
-  .auth-form {
-    margin: 1.5rem 0.5rem;
-    padding: 1.2rem;
-  }
-  .auth-form input,
-  .auth-form button {
-    padding: 0.8rem;
-  }
+ .home {
+ min-height: calc(100vh - 60px);
+ }
+ .auth-form {
+ margin: 2rem 1rem;
+ padding: 1.5rem;
+ max-width: 100%;
+ }
+ .auth-form input,
+ .auth-form button {
+ padding: 0.8rem;
+ }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
-  .auth-form {
-    margin: 2rem 1rem;
-    padding: 1.5rem;
-  }
+ .home {
+ min-height: calc(100vh - 70px);
+ }
+ .auth-form {
+ margin: 2.5rem auto;
+ padding: 2rem;
+ }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
-  .auth-form {
-    margin: 2rem auto;
-    padding: 2rem;
-    max-width: 1200px;
-  }
+ .home {
+ min-height: calc(100vh - 80px);
+ }
+ .auth-form {
+ max-width: 500px;
+ }
 }

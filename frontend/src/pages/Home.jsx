@@ -33,7 +33,6 @@ function Home({ setIsAuthenticated }) {
   return (
     <div className="home">
       <HeroBanner />
-      <CustomerReviews />
       <div className="auth-form">
         <h2>{isSignup ? <><i className="fas fa-user-plus"></i> Sign Up</> : <><i className="fas fa-sign-in-alt"></i> Log In</>}</h2>
         <form onSubmit={handleSubmit}>
@@ -48,6 +47,7 @@ function Home({ setIsAuthenticated }) {
           {isSignup ? 'Already have an account? Log In' : 'Need an account? Sign Up'}
         </p>
       </div>
+      <CustomerReviews />
       <Footer />
     </div>
   );

@@ -1,12 +1,13 @@
 :root {
-  --primary: #1E3A8A; /* Deep blue */
-  --accent: #F59E0B; /* Amber */
-  --secondary: #60A5FA; /* Light blue */
-  --background: #F3F4F6; /* Soft gray */
-  --text: #111827; /* Dark gray */
-  --success: #10B981; /* Green */
-  --error: #EF4444; /* Red */
-  --card-bg: rgba(255, 255, 255, 0.9); /* Glassmorphic */
+  --primary: #1E3A8A;
+  --accent: #F59E0B;
+  --secondary: #60A5FA;
+  --highlight: #8B5CF6; /* New vibrant purple */
+  --background: #F3F4F6;
+  --text: #111827;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --success: #10B981;
+  --error: #EF4444;
 }
 
 * {
@@ -20,7 +21,6 @@ body {
   background-color: var(--background);
   color: var(--text);
   overflow-x: hidden;
-  width: 100vw;
 }
 
 a {
@@ -50,45 +50,50 @@ button:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Ensure containers don't overflow */
-.container {
-  max-width: 100%;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-/* Loading and error states */
-.loading, .error {
-  text-align: center;
-  padding: 2rem;
-  font-size: 1.2rem;
-  color: var(--text);
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Phone */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-5px); }
+  60% { transform: translateY(-3px); }
+}
+
+.main-content {
+  margin-left: 250px;
+  padding-bottom: 80px; /* Space for fixed footer */
+}
+
+/* Mobile */
 @media (max-width: 576px) {
-  body {
-    font-size: 14px;
-  }
-  .container {
-    padding: 0 0.5rem;
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+    padding-bottom: 60px;
   }
 }
 
 /* Tablet */
 @media (max-width: 768px) {
-  body {
-    font-size: 15px;
+  .main-content {
+    margin-left: 200px;
+    padding: 1.5rem;
+    padding-bottom: 70px;
   }
 }
 
 /* Laptop */
 @media (min-width: 769px) {
-  body {
-    font-size: 16px;
-  }
-  .container {
-    max-width: 1200px;
+  .main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    padding-bottom: 80px;
   }
 }

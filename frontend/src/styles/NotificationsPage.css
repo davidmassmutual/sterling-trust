@@ -1,0 +1,102 @@
+.notifications-page {
+  padding: 4rem 2rem 8rem;
+  background: linear-gradient(135deg, var(--background) 0%, #E0E7FF 100%);
+  min-height: calc(100vh - 80px);
+  animation: fadeIn 0.7s ease-in;
+}
+
+.notifications-page h2 {
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notifications-list {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  animation: scaleIn 0.5s ease-out;
+}
+
+.notifications-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.notifications-list th,
+.notifications-list td {
+  padding: 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.notifications-list th {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.notifications-list td {
+  color: var(--text);
+}
+
+.notifications-list td.unread {
+  color: var(--error);
+  font-weight: 500;
+}
+
+.notifications-list td.read {
+  color: var(--success);
+}
+
+.loading,
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 80px);
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.error {
+  color: var(--error);
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .notifications-page {
+    padding: 2rem 1rem 6rem;
+    min-height: calc(100vh - 60px);
+  }
+  .notifications-list th,
+  .notifications-list td {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .notifications-page {
+    padding: 3rem 1.5rem 7rem;
+    min-height: calc(100vh - 70px);
+  }
+  .notifications-list th,
+  .notifications-list td {
+    padding: 1.2rem;
+  }
+}
+
+/* Laptop */
+@media (min-width: 769px) {
+  .notifications-list th,
+  .notifications-list td {
+    padding: 1.5rem;
+  }
+}

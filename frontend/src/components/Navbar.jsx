@@ -1,33 +1,57 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '../styles/Navbar.css';
 
 function Navbar({ handleLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const navItems = [
+    { path: '/dashboard', label: 'Dashboard', icon: 'fas fa-home' },
+    { path: '/account-summary', label: 'Account Summary', icon: 'fas fa-wallet' },
+    { path: '/transfer', label: 'Transfer', icon: 'fas fa-exchange-alt' },
+    { path: '/cards', label: 'Cards', icon: 'fas fa-credit-card' },
+    { path: '/transactions', label: 'Transactions', icon: 'fas fa-history' },
+    { path: '/notifications', label: 'Notifications', icon: 'fas fa-bell' },
+    { path: '/loans', label: 'Loan', icon: 'fas fa-hand-holding-usd' },
+    { path: '/support', label: 'Support', icon: 'fas fa-headset' },
+    { path: '/settings', label: 'Settings', icon: 'fas fa-cog' },
+  ];
+
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <h1>Sterling Trust Bank</h1>
-        <p>Strength. Security. Stability.</p>
-      </div>
+    <>
       <button className="hamburger" onClick={toggleMenu}>
         <i className="fas fa-bars"></i>
       </button>
-      <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
-        <li><Link to="/dashboard" onClick={toggleMenu}>Accounts</Link></li>
-        <li><Link to="/activity" onClick={toggleMenu}>Transfers</Link></li>
-        <li><Link to="/cards" onClick={toggleMenu}>Cards</Link></li>
-        <li><Link to="/loans" onClick={toggleMenu}>Loans</Link></li>
-        <li><Link to="/support" onClick={toggleMenu}>Support</Link></li>
-        <li><Link to="/settings" onClick={toggleMenu}>Settings</Link></li>
-        <li><button onClick={() => { handleLogout(); toggleMenu(); }}>Logout</button></li>
-      </ul>
-    </nav>
+      <nav className={`navbar ${isMenuOpen ? 'active' : ''}`}>
+        <div className="navbar-brand">
+          <h1>Sterling Trust Bank</h1>
+          <p>Strength. Security. Stability.</p>
+        </div>
+        <ul className="navbar-menu">
+          {navItems.map((item) => (
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className={location.pathname === item.path ? 'active' : ''}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <i className={item.icon}></i> {item.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <button onClick={() => { handleLogout(); setIsMenuOpen(false); }}>
+              <i className="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </>
   );
 }
 

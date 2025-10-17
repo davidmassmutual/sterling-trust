@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import AccountSummary from '../components/AccountSummary';
-import Transactions from '../components/Transactions';
-import TransferPayment from '../components/TransferPayment';
+import AccountSummary from '../pages/AccountSummary';
 import DepositOptions from '../components/DepositOptions';
-import Notifications from '../components/Notifications';
-import SecurityDisplay from '../components/SecurityDisplay';
+import TransferPayment from '../pages/TransferPayment';
 import CurrencyConverter from '../components/CurrencyConverter';
 import LoanBanner from '../components/LoanBanner';
+import SecurityDisplay from '../components/SecurityDisplay';
 import Footer from '../components/Footer';
 import '../styles/Dashboard.css';
 
@@ -16,6 +15,7 @@ function Dashboard() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,10 +39,14 @@ function Dashboard() {
   }, []);
 
   const sampleNotifications = [
-    'Deposit Pending',
-    'Transfer Successful',
-    'Low Balance Warning',
+    { id: 1, message: 'Deposit Pending', timestamp: '2025-10-17 10:00 AM' },
+    { id: 2, message: 'Transfer Successful', timestamp: '2025-10-16 3:45 PM' },
+    { id: 3, message: 'Low Balance Warning', timestamp: '2025-10-15 9:20 AM' },
   ];
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -54,25 +58,48 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="welcome-message">
-        <h2><i className="fas fa-user"></i> Welcome, {userData?.name || 'User'}</h2>
+      <div className="notifications-bell">
+        <button onClick={toggleNotifications} className="bell-icon">
+          <i className="fas fa-bell"></i>
+          {sampleNotifications.length > 0 && (
+            <span className="badge">{sampleNotifications.length}</span>
+          )}
+        </button>
+        {showNotifications && (
+          <div className="notifications-overlay">
+            <h3>Notifications</h3>
+            {sampleNotifications.slice(0, 3).map((notification) => (
+              <div key={notification.id} className="notification-item">
+                <p>{notification.message}</p>
+                <span>{notification.timestamp}</span>
+              </div>
+            ))}
+            <Link to="/notifications" onClick={() => setShowNotifications(false)} className="view-all">
+              View Full Notifications
+            </Link>
+          </div>
+        )}
+      </div>
+      <div className="welcome-section">
+        <h1>Welcome, {userData?.name || 'Lillian'}</h1>
       </div>
       <AccountSummary accounts={userData?.accounts} />
-      <LoanBanner />
-      <DepositOptions />
-      <TransferPayment />
-      <Transactions transactions={userData?.transactions || [
-        { date: '2025-10-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
-        { date: '2025-09-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
-        { date: '2025-08-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
-        { date: '2025-07-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
-        { date: '2025-06-10', description: 'Payroll Acme Inc.', amount: 2250, type: 'credit', status: 'Posted' },
-      ]} />
-      <CurrencyConverter />
-      <SecurityDisplay
-        lastLogin={userData?.lastLogin ? new Date(userData.lastLogin).toLocaleString() : 'N/A'}
-        twoFactorEnabled={userData?.twoFactorEnabled || false}
-      />
+      <div className="quick-actions">
+        <div className="action-card">
+          <DepositOptions />
+        </div>
+        <div className="action-card">
+          <TransferPayment />
+        </div>
+      </div>
+      <div className="secondary-features">
+        <CurrencyConverter />
+        <LoanBanner />
+        <SecurityDisplay
+          lastLogin={userData?.lastLogin ? new Date(userData.lastLogin).toLocaleString() : 'N/A'}
+          twoFactorEnabled={userData?.twoFactorEnabled || false}
+        />
+      </div>
       <Footer />
     </div>
   );
