@@ -2,8 +2,6 @@
   background: linear-gradient(135deg, var(--primary), #168db1);
   color: white;
   padding: 2rem 1.5rem;
-  /* width: 100%; */
-  margin-top: 2rem; /* Gap for short pages */
 }
 
 .footer-content {
@@ -65,19 +63,9 @@
   opacity: 0.8;
 }
 
-/* Desktop: Adjust for navbar offset */
-@media (min-width: 769px) {
-  .footer {
-    margin-left: 250px; /* Match navbar width */
-    width: calc(100% - 250px);
-  }
-}
-
 /* Tablet */
 @media (max-width: 768px) and (min-width: 577px) {
   .footer {
-    margin-left: 200px; /* Match navbar width */
-    width: calc(100% - 200px);
     padding: 1.8rem 1.2rem;
   }
 }
@@ -86,7 +74,6 @@
 @media (max-width: 576px) {
   .footer {
     padding: 1.5rem 1rem;
-    margin-top: 1.5rem;
     margin-left: 0; /* No offset */
     width: 100%;
   }

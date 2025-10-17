@@ -1,3 +1,4 @@
+// src/pages/Dashboard.jsx
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -18,21 +19,22 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on mount
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
-        console.log('Token:', token); // Debug
+        console.log('Token:', token);
         if (!token) {
           throw new Error('No authentication token found');
         }
         const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log('User data:', res.data); // Debug
+        console.log('User data:', res.data);
         setUserData(res.data);
         setLoading(false);
       } catch (err) {
-        console.error('Fetch error:', err.response || err); // Debug
+        console.error('Fetch error:', err.response || err);
         if (err.response?.status === 401) {
           localStorage.removeItem('token');
           toast.error('Session expired. Please log in again.');
@@ -94,10 +96,15 @@ function Dashboard() {
         )}
       </div>
       <div className="welcome-section">
-        <h1>Welcome, {userData?.name || 'Lillian'}</h1>
+        <h1>
+          <span className="welcome-icon">
+            <i className="fas fa-user-circle"></i>
+          </span>
+          Welcome, {userData?.name || 'Lillian'}
+        </h1>
       </div>
       <div className="account-sum">
-      <AccountSummary accounts={userData?.accounts} />
+        <AccountSummary accounts={userData?.accounts} />
       </div>
       <div className="action-buttons">
         <div className="action-button-grid">
