@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/Navbar.css';
 
-function Navbar({ handleLogout }) {
+function Navbar({ handleLogout, isAuthenticated }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+
+  if (!isAuthenticated) return null;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -30,7 +32,7 @@ function Navbar({ handleLogout }) {
       <nav className={`navbar ${isMenuOpen ? 'active' : ''}`}>
         <div className="navbar-brand">
           <h1>Sterling Trust Bank</h1>
-          <p>Strength. Security. Stability.</p>
+          <p>Strength-Security-Stability</p>
           <button className="close-menu" onClick={toggleMenu}>
             <i className="fas fa-times"></i>
           </button>

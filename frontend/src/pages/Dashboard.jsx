@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import AccountSummary from '../pages/AccountSummary';
@@ -16,6 +16,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showNotifications, setShowNotifications] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,13 +31,19 @@ function Dashboard() {
         setUserData(res.data);
         setLoading(false);
       } catch (err) {
-        setError(err.message || 'Failed to fetch user data');
-        setLoading(false);
-        toast.error(err.message || 'Failed to fetch user data');
+        if (err.response?.status === 401) {
+          localStorage.removeItem('token');
+          toast.error('Session expired. Please log in again.');
+          navigate('/');
+        } else {
+          setError(err.message || 'Failed to fetch user data');
+          setLoading(false);
+          toast.error(err.message || 'Failed to fetch user data');
+        }
       }
     };
     fetchData();
-  }, []);
+  }, [navigate]);
 
   const sampleNotifications = [
     { id: 1, message: 'Deposit Pending', timestamp: '2025-10-17 10:00 AM' },

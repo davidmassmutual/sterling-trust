@@ -44,6 +44,57 @@ button:hover {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+.error-boundary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem;
+  background: var(--background);
+  color: var(--text);
+}
+
+.error-boundary h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.error-boundary p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--error);
+}
+
+.error-boundary button {
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(90deg, var(--accent), #FBBF24);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.error-boundary button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .error-boundary h2 {
+    font-size: 1.6rem;
+  }
+  .error-boundary p {
+    font-size: 0.9rem;
+  }
+  .error-boundary button {
+    padding: 0.7rem 1.2rem;
+  }
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }

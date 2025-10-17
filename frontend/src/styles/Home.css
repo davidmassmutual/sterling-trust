@@ -4,6 +4,7 @@
   display: grid;
   gap: 2.5rem;
   padding-bottom: 8rem;
+  width: 100%;
 }
 
 .hero {

@@ -3,11 +3,27 @@ import '../styles/Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      <p>FDIC Insured up to $250,000</p>
-      <div className="footer-links">
-        <a href="/privacy"><i className="fas fa-lock"></i> Privacy Policy</a>
-        <a href="/terms"><i className="fas fa-file-alt"></i> Terms</a>
-        <a href="/contact"><i className="fas fa-envelope"></i> Contact</a>
+      <div className="footer-content">
+        <div className="footer-section">
+          <h3>Sterling Trust Bank</h3>
+          <p>Strength. Security. Stability.</p>
+        </div>
+        <div className="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/loans">Loans</a></li>
+            <li><a href="/settings">Settings</a></li>
+          </ul>
+        </div>
+        <div className="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: support@sterlingtrust.com</p>
+          <p>Phone: (123) 456-7890</p>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} Sterling Trust Bank. All rights reserved.</p>
       </div>
     </footer>
   );
