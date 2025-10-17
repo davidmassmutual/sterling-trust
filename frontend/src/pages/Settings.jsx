@@ -1,4 +1,4 @@
-// src/pages/Settings.jsx
+// frontend/src/pages/Settings.jsx
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -52,11 +52,10 @@ function Settings() {
           currency: res.data.currency || 'USD',
           theme: res.data.theme || 'light',
         });
-        // Mock sessions (replace with API call to /api/user/sessions)
-        setSessions([
-          { id: 1, device: 'Chrome on Windows', lastActive: '2025-10-17 10:00 AM' },
-          { id: 2, device: 'Safari on iPhone', lastActive: '2025-10-16 3:45 PM' },
-        ]);
+        const sessionsRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/sessions`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setSessions(sessionsRes.data);
         setLoading(false);
       } catch (err) {
         console.error('Fetch error:', err);
@@ -157,7 +156,6 @@ function Settings() {
         preferences,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      // Apply theme client-side (example)
       document.documentElement.setAttribute('data-theme', preferences.theme);
       toast.success('Preferences updated!');
     } catch (err) {
@@ -168,7 +166,6 @@ function Settings() {
   const handleLogoutSession = async (sessionId) => {
     try {
       const token = localStorage.getItem('token');
-      // Replace with actual API call
       await axios.delete(`${import.meta.env.VITE_API_URL}/api/user/sessions/${sessionId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -187,133 +184,67 @@ function Settings() {
     <div className="settings">
       <h2><i className="fas fa-cog"></i> Settings</h2>
       <div className="settings-container">
-        {/* Profile Section */}
         <div className="settings-card">
           <h3><i className="fas fa-user"></i> Profile Information</h3>
           <form onSubmit={handleProfileSubmit}>
             <label>
               Full Name
-              <input
-                type="text"
-                name="name"
-                value={profile.name}
-                onChange={handleProfileChange}
-                required
-              />
+              <input type="text" name="name" value={profile.name} onChange={handleProfileChange} required />
             </label>
             <label>
               Email
-              <input
-                type="email"
-                name="email"
-                value={profile.email}
-                onChange={handleProfileChange}
-                required
-              />
+              <input type="email" name="email" value={profile.email} onChange={handleProfileChange} required />
             </label>
             <label>
               Phone Number
-              <input
-                type="tel"
-                name="phone"
-                value={profile.phone}
-                onChange={handleProfileChange}
-              />
+              <input type="tel" name="phone" value={profile.phone} onChange={handleProfileChange} />
             </label>
             <label>
               Address
-              <textarea
-                name="address"
-                value={profile.address}
-                onChange={handleProfileChange}
-                rows="3"
-              />
+              <textarea name="address" value={profile.address} onChange={handleProfileChange} rows="3" />
             </label>
-            <button type="submit">
-              <i className="fas fa-save"></i> Save Profile
-            </button>
+            <button type="submit"><i className="fas fa-save"></i> Save Profile</button>
           </form>
         </div>
-
-        {/* Security Section */}
         <div className="settings-card">
           <h3><i className="fas fa-shield-alt"></i> Security</h3>
           <div className="settings-toggle">
             <label>
               <i className="fas fa-user-shield"></i>
-              <input
-                type="checkbox"
-                checked={security.twoFactor}
-                onChange={handle2FASubmit}
-              />
+              <input type="checkbox" checked={security.twoFactor} onChange={handle2FASubmit} />
               Enable Two-Factor Authentication
             </label>
           </div>
           <form onSubmit={handlePasswordSubmit}>
             <label>
               New Password
-              <input
-                type="password"
-                name="newPassword"
-                value={security.newPassword}
-                onChange={handleSecurityChange}
-                required
-              />
+              <input type="password" name="newPassword" value={security.newPassword} onChange={handleSecurityChange} required />
             </label>
             <label>
               Confirm Password
-              <input
-                type="password"
-                name="confirmPassword"
-                value={security.confirmPassword}
-                onChange={handleSecurityChange}
-                required
-              />
+              <input type="password" name="confirmPassword" value={security.confirmPassword} onChange={handleSecurityChange} required />
             </label>
-            <button type="submit">
-              <i className="fas fa-key"></i> Change Password
-            </button>
+            <button type="submit"><i className="fas fa-key"></i> Change Password</button>
           </form>
         </div>
-
-        {/* Notification Preferences */}
         <div className="settings-card">
           <h3><i className="fas fa-bell"></i> Notification Preferences</h3>
           <form onSubmit={handleNotificationsSubmit}>
             <label>
-              <input
-                type="checkbox"
-                name="email"
-                checked={notifications.email}
-                onChange={handleNotificationsChange}
-              />
+              <input type="checkbox" name="email" checked={notifications.email} onChange={handleNotificationsChange} />
               Email Notifications
             </label>
             <label>
-              <input
-                type="checkbox"
-                name="sms"
-                checked={notifications.sms}
-                onChange={handleNotificationsChange}
-              />
+              <input type="checkbox" name="sms" checked={notifications.sms} onChange={handleNotificationsChange} />
               SMS Notifications
             </label>
             <label>
-              <input
-                type="checkbox"
-                name="push"
-                checked={notifications.push}
-                onChange={handleNotificationsChange}
-              />
+              <input type="checkbox" name="push" checked={notifications.push} onChange={handleNotificationsChange} />
               Push Notifications
             </label>
-            <button type="submit">
-              <i className="fas fa-save"></i> Save Notifications
-            </button>
+            <button type="submit"><i className="fas fa-save"></i> Save Notifications</button>
           </form>
         </div>
-
-        {/* Account Preferences */}
         <div className="settings-card">
           <h3><i className="fas fa-cogs"></i> Account Preferences</h3>
           <form onSubmit={handlePreferencesSubmit}>
@@ -332,13 +263,9 @@ function Settings() {
                 <option value="dark">Dark</option>
               </select>
             </label>
-            <button type="submit">
-              <i className="fas fa-save"></i> Save Preferences
-            </button>
+            <button type="submit"><i className="fas fa-save"></i> Save Preferences</button>
           </form>
         </div>
-
-        {/* Active Sessions */}
         <div className="settings-card">
           <h3><i className="fas fa-desktop"></i> Active Sessions</h3>
           {sessions.length > 0 ? (
@@ -346,11 +273,8 @@ function Settings() {
               {sessions.map((session) => (
                 <div key={session.id} className="session-item">
                   <p>{session.device}</p>
-                  <span>Last Active: {session.lastActive}</span>
-                  <button
-                    onClick={() => handleLogoutSession(session.id)}
-                    className="logout-session"
-                  >
+                  <span>Last Active: {new Date(session.lastActive).toLocaleString()}</span>
+                  <button onClick={() => handleLogoutSession(session.id)} className="logout-session">
                     <i className="fas fa-sign-out-alt"></i> Log Out
                   </button>
                 </div>

@@ -1,4 +1,4 @@
-// src/App.jsx
+// frontend/src/App.jsx
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -14,12 +14,13 @@ import TransferPayment from './pages/TransferPayment';
 import VirtualCards from './pages/VirtualCards';
 import NotificationsPage from './pages/NotificationsPage';
 import DepositDetails from './pages/DepositDetails';
-import Admin from './pages/Admin';
+import AdminLogin from './pages/AdminLogin'; // Import AdminLogin
+import AdminDashboard from './pages/AdminDashboard'; // Import AdminDashboard
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './styles/App.css'; // Ensure App.css exists
+import './styles/App.css';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -31,10 +32,11 @@ function ScrollToTop() {
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem('isAdmin') === 'true');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('isAdmin');
     setIsAuthenticated(false);
     setIsAdmin(false);
   };
@@ -48,10 +50,13 @@ function App() {
             headers: { Authorization: `Bearer ${token}` },
           });
           setIsAuthenticated(true);
-          setIsAdmin(res.data.isAdmin || false);
+          const adminStatus = res.data.isAdmin || false;
+          setIsAdmin(adminStatus);
+          localStorage.setItem('isAdmin', adminStatus.toString());
         } catch (err) {
-          console.error('Token validation failed:', err);
+          console.error('Token validation failed:', err.response?.status, err.response?.data);
           localStorage.removeItem('token');
+          localStorage.removeItem('isAdmin');
           setIsAuthenticated(false);
           setIsAdmin(false);
         }
@@ -65,7 +70,7 @@ function App() {
       <ErrorBoundary>
         <div className="app">
           <ScrollToTop />
-          <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} />
+          <Navbar handleLogout={handleLogout} isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
           <div className="main-content">
             <Routes>
               <Route path="/" element={<Home setIsAuthenticated={setIsAuthenticated} />} />
@@ -111,7 +116,11 @@ function App() {
               />
               <Route
                 path="/admin"
-                element={isAuthenticated && isAdmin ? <Admin /> : <Navigate to="/dashboard" />}
+                element={<AdminLogin setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} />}
+              />
+              <Route
+                path="/admin/dashboard"
+                element={isAuthenticated && isAdmin ? <AdminDashboard /> : <Navigate to="/admin" />}
               />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

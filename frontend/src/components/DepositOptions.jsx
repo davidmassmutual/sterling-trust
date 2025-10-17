@@ -9,17 +9,11 @@ function DepositOptions() {
   const navigate = useNavigate();
 
   const depositOptions = [
+    
     {
-      method: 'Bank Transfer',
-      accountNumber: '1234567890',
-      bankName: 'Sterling Trust Bank',
-      routingNumber: '0987654321',
-    },
-    {
-      method: 'Wire Transfer',
-      accountNumber: '9876543210',
-      bankName: 'Sterling Trust Bank',
-      routingNumber: '1234567890',
+      method: 'Crypto',
+      accountNumber: '0xa49a10d8F662A043243A2b66a922e5ebB1e05250',
+      bankName: 'USDT',
     },
   ];
 

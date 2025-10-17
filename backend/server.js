@@ -1,10 +1,11 @@
+// backend/server.js
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-const multer = require('multer');
 const path = require('path');
+const dotenv = require('dotenv');
 
+dotenv.config();
 const app = express();
 app.use(cors({
   origin: 'https://sterling-trust.onrender.com',
@@ -12,73 +13,32 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Configure Multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage });
+// Serve uploads
+app.use('/uploads', express.static('uploads'));
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+const MONGO_URI = process.env.MONGO_URI;
+if (!MONGO_URI) {
+  throw new Error('MONGO_URI is not defined in .env file');
+}
+mongoose.connect(MONGO_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+    process.exit(1);
+  });
 
-// Transaction Schema
-const transactionSchema = new mongoose.Schema({
-  userId: String,
-  amount: Number,
-  method: String,
-  status: String,
-  timestamp: Date,
-  proof: String,
-});
-const Transaction = mongoose.model('Transaction', transactionSchema);
+// Routes
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const transactionRoutes = require('./routes/transactions');
 
-// Middleware to verify JWT
-const authenticate = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ message: 'Unauthorized' });
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId;
-    next();
-  } catch (err) {
-    res.status(401).json({ message: 'Invalid token' });
-  }
-};
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/transactions', transactionRoutes);
 
-// Transactions Endpoint
-app.post('/api/transactions', authenticate, upload.single('proof'), async (req, res) => {
-  try {
-    const { amount, method, status, timestamp } = req.body;
-    const transaction = new Transaction({
-      userId: req.userId,
-      amount,
-      method,
-      status,
-      timestamp,
-      proof: req.file ? `/uploads/${req.file.filename}` : null,
-    });
-    await transaction.save();
-    res.status(201).json(transaction);
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to save transaction' });
-  }
-});
-
-app.get('/api/transactions', authenticate, async (req, res) => {
-  try {
-    const transactions = await Transaction.find({ userId: req.userId });
-    res.json(transactions);
-  } catch (err) {
-    res.status(500).json({ message: 'Failed to fetch transactions' });
-  }
-});
-
-// Other endpoints (e.g., /api/auth, /api/user) remain unchanged
+// Test endpoint to verify server
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,28 +1,131 @@
-// sterling-trust-backend/routes/user.js
+// backend/routes/user.js
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
+const Session = require('../models/Session');
+const verifyToken = require('../middleware/auth');
 
-const authMiddleware = (req, res, next) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
-  if (!token) return res.status(401).json({ msg: 'No token, authorization denied' });
-
+// Get user settings
+router.get('/', verifyToken, async (req, res) => {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    res.status(401).json({ msg: 'Token is not valid' });
-  }
-};
-
-router.get('/', authMiddleware, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.userId).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
   } catch (err) {
-    res.status(500).json({ msg: 'Server error' });
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Update profile
+router.put('/profile', verifyToken, async (req, res) => {
+  try {
+    const { name, email, phone, address } = req.body;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    if (email && email !== user.email) {
+      const emailExists = await User.findOne({ email });
+      if (emailExists) return res.status(400).json({ message: 'Email already exists' });
+    }
+    user.name = name || user.name;
+    user.email = email || user.email;
+    user.phone = phone || user.phone;
+    user.address = address || user.address;
+    await user.save();
+    res.json({ message: 'Profile updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Update password
+router.put('/password', verifyToken, async (req, res) => {
+  try {
+    const { password } = req.body;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    user.password = await bcrypt.hash(password, 10);
+    await user.save();
+    res.json({ message: 'Password updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Update 2FA
+router.put('/2fa', verifyToken, async (req, res) => {
+  try {
+    const { twoFactor } = req.body;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    user.twoFactorEnabled = twoFactor;
+    await user.save();
+    res.json({ message: '2FA updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Update notifications
+router.put('/notifications', verifyToken, async (req, res) => {
+  try {
+    const { email, sms, push } = req.body;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    user.notifications = { email, sms, push };
+    await user.save();
+    res.json({ message: 'Notifications updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Update preferences
+router.put('/preferences', verifyToken, async (req, res) => {
+  try {
+    const { currency, theme } = req.body;
+    const user = await User.findById(req.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    user.currency = currency;
+    user.theme = theme;
+    await user.save();
+    res.json({ message: 'Preferences updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get sessions
+router.get('/sessions', verifyToken, async (req, res) => {
+  try {
+    const sessions = await Session.find({ userId: req.userId });
+    res.json(sessions.map(session => ({
+      id: session._id,
+      device: session.device,
+      lastActive: session.lastActive,
+    })));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Delete session
+router.delete('/sessions/:id', verifyToken, async (req, res) => {
+  try {
+    const session = await Session.findOne({ _id: req.params.id, userId: req.userId });
+    if (!session) return res.status(404).json({ message: 'Session not found' });
+    await session.deleteOne();
+    res.json({ message: 'Session terminated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
