@@ -12,6 +12,7 @@ const app = express();
 const allowedOrigins = [
   'https://sterling-trust.onrender.com',
   'https://sterling-trust.vercel.app',
+  'https://sterlingtrustsbank.com',
   'http://localhost:5173', // For local development
 ];
 
