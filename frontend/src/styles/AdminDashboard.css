@@ -8,7 +8,7 @@
 .admin-dashboard h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--primary, #2c3e50);
   text-align: center;
   margin-bottom: 1.5rem;
   display: flex;
@@ -18,23 +18,131 @@
 }
 
 .dashboard-card {
-  background: var(--card-bg);
+  background: var(--card-bg, rgba(255, 255, 255, 0.9));
   backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  border: 2px solid var(--highlight);
-  max-width: 800px;
+  border: 2px solid var(--highlight, #3498db);
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
 }
 
-@media (max-width: 576px) {
+.dashboard-card h3 {
+  font-size: 1.5rem;
+  color: var(--text, #333);
+  margin-bottom: 1rem;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.password-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  color: var(--text, #333);
+}
+
+.password-form input {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--highlight, #3498db);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--input-bg, #f9f9f9);
+  color: var(--text, #333);
+}
+
+.password-form button {
+  padding: 0.75rem;
+  background: var(--accent, #3498db);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.password-form button:disabled {
+  background: var(--highlight, #7f8c8d);
+  cursor: not-allowed;
+}
+
+.password-form button:hover:not(:disabled) {
+  background: var(--primary, #2c3e50);
+}
+
+.users-table {
+  overflow-x: auto;
+}
+
+.users-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.users-table th,
+.users-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.users-table th {
+  background: var(--primary, #2c3e50);
+  color: white;
+  font-weight: 600;
+}
+
+.users-table tr:hover {
+  background: #f5f5f5;
+}
+
+.users-table td {
+  color: var(--text, #333);
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--primary, #2c3e50);
+}
+
+@media (max-width: 768px) {
   .admin-dashboard {
     padding: 1rem;
   }
+
   .admin-dashboard h2 {
     font-size: 1.6rem;
+  }
+
+  .dashboard-card {
+    padding: 1rem;
+  }
+
+  .password-form {
+    max-width: 100%;
+  }
+
+  .users-table th,
+  .users-table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
   }
 }
 

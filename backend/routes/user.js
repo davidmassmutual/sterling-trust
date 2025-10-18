@@ -6,12 +6,46 @@ const User = require('../models/User');
 const Session = require('../models/Session');
 const verifyToken = require('../middleware/auth');
 
-// Get user settings
+// Middleware to check if user is admin
+const isAdmin = (req, res, next) => {
+  if (!req.isAdmin) {
+    return res.status(403).json({ message: 'Access denied: Admins only' });
+  }
+  next();
+};
+
+// Get all users (admin only)
+router.get('/all', verifyToken, isAdmin, async (req, res) => {
+  try {
+    const users = await User.find().select('-password'); // Exclude passwords
+    res.json(users);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get current user
 router.get('/', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('-password');
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get user sessions
+router.get('/sessions', verifyToken, async (req, res) => {
+  try {
+    const sessions = await Session.find({ userId: req.userId });
+    res.json(sessions.map(session => ({
+      id: session._id,
+      device: session.device,
+      lastActive: session.lastActive,
+    })));
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -44,11 +78,12 @@ router.put('/profile', verifyToken, async (req, res) => {
 router.put('/password', verifyToken, async (req, res) => {
   try {
     const { password } = req.body;
+    if (!password) return res.status(400).json({ message: 'Password is required' });
     const user = await User.findById(req.userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
     user.password = await bcrypt.hash(password, 10);
     await user.save();
-    res.json({ message: 'Password updated' });
+    res.json({ message: 'Password updated successfully' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -95,21 +130,6 @@ router.put('/preferences', verifyToken, async (req, res) => {
     user.theme = theme;
     await user.save();
     res.json({ message: 'Preferences updated' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// Get sessions
-router.get('/sessions', verifyToken, async (req, res) => {
-  try {
-    const sessions = await Session.find({ userId: req.userId });
-    res.json(sessions.map(session => ({
-      id: session._id,
-      device: session.device,
-      lastActive: session.lastActive,
-    })));
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

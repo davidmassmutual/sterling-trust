@@ -18,8 +18,8 @@ function Footer() {
         </div>
         <div className="footer-section">
           <h4>Contact Us</h4>
-          <p>Email: support@sterlingtrust.com</p>
-          <p>Phone: (123) 456-7890</p>
+          <p>Email: sterlingtrustcontact@gmail.com</p>
+          <p>Phone: +1 (541) 456-7890</p>
         </div>
       </div>
       <div className="footer-bottom">

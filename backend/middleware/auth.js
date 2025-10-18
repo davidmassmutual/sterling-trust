@@ -6,7 +6,8 @@ const verifyToken = (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'No token provided' });
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId; // Use userId consistently
+    req.userId = decoded.userId;
+    req.isAdmin = decoded.isAdmin || false;
     next();
   } catch (err) {
     res.status(401).json({ message: 'Invalid token' });
