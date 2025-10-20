@@ -25,6 +25,23 @@ router.get('/all', verifyToken, isAdmin, async (req, res) => {
   }
 });
 
+// Update user balances (admin only)
+router.put('/:id/balances', verifyToken, isAdmin, async (req, res) => {
+  try {
+    const { savingsBalance, checkingBalance, usdtBalance } = req.body;
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    user.savingsBalance = savingsBalance !== undefined ? savingsBalance : user.savingsBalance;
+    user.checkingBalance = checkingBalance !== undefined ? checkingBalance : user.checkingBalance;
+    user.usdtBalance = usdtBalance !== undefined ? usdtBalance : user.usdtBalance;
+    await user.save();
+    res.json({ message: 'Balances updated successfully', user: { ...user.toObject(), password: undefined } });
+  } catch (err) {
+    console.error('Error updating balances:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Get current user
 router.get('/', verifyToken, async (req, res) => {
   try {

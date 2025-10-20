@@ -61,7 +61,10 @@
   .account-summary h2 {
     font-size: 1.6rem;
   }
-
+  .balance-cards{
+    grid-template-columns: 1fr;
+    
+  }
   .balance-card {
     padding: 1rem;
   }
