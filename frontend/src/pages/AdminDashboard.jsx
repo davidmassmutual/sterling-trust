@@ -14,7 +14,7 @@ function AdminDashboard() {
   });
   const [passwordLoading, setPasswordLoading] = useState(false);
   const [editBalance, setEditBalance] = useState(null);
-  const [editTransactions, setEditTransactions] = useState(null); // Track user transactions
+  const [editTransactions, setEditTransactions] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newTransaction, setNewTransaction] = useState({
     type: '',
@@ -91,6 +91,7 @@ function AdminDashboard() {
   const handleBalanceEdit = (user) => {
     setEditBalance({
       userId: user._id,
+      email: user.email,
       savingsBalance: user.savingsBalance,
       checkingBalance: user.checkingBalance,
       usdtBalance: user.usdtBalance,
@@ -172,213 +173,222 @@ function AdminDashboard() {
   return (
     <div className="admin-dashboard">
       <h2><i className="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
-      <div className="dashboard-card">
-        <h3>Change Password</h3>
-        <form className="password-form" onSubmit={handlePasswordSubmit}>
-          <label>
-            New Password
-            <input
-              type="password"
-              name="newPassword"
-              value={passwordForm.newPassword}
-              onChange={handlePasswordChange}
-              required
-              minLength={6}
-            />
-          </label>
-          <label>
-            Confirm Password
-            <input
-              type="password"
-              name="confirmPassword"
-              value={passwordForm.confirmPassword}
-              onChange={handlePasswordChange}
-              required
-              minLength={6}
-            />
-          </label>
-          <button type="submit" disabled={passwordLoading}>
-            <i className="fas fa-lock"></i> {passwordLoading ? 'Updating...' : 'Change Password'}
-          </button>
-        </form>
-
-        <h3>Registered Users</h3>
-        {loading ? (
-          <div className="loading">Loading users...</div>
-        ) : users.length === 0 ? (
-          <p>No users found.</p>
-        ) : (
-          <div className="users-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Address</th>
-                  <th>Admin</th>
-                  <th>Joined</th>
-                  <th>Savings</th>
-                  <th>Checking</th>
-                  <th>USDT</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={user._id}>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phone || 'N/A'}</td>
-                    <td>{user.address || 'N/A'}</td>
-                    <td>{user.isAdmin ? 'Yes' : 'No'}</td>
-                    <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                    <td>${user.savingsBalance.toLocaleString()}</td>
-                    <td>${user.checkingBalance.toLocaleString()}</td>
-                    <td>${user.usdtBalance.toLocaleString()}</td>
-                    <td>
-                      <button onClick={() => handleBalanceEdit(user)}>Edit Balances</button>
-                      <button onClick={() => handleTransactionEdit(user)}>Manage Transactions</button>
-                    </td>
+      <div className="dashboard-container">
+        <div className="password-section">
+          <h3>Change Password</h3>
+          <form className="password-form" onSubmit={handlePasswordSubmit}>
+            <label>
+              New Password
+              <input
+                type="password"
+                name="newPassword"
+                value={passwordForm.newPassword}
+                onChange={handlePasswordChange}
+                required
+                minLength={6}
+              />
+            </label>
+            <label>
+              Confirm Password
+              <input
+                type="password"
+                name="confirmPassword"
+                value={passwordForm.confirmPassword}
+                onChange={handlePasswordChange}
+                required
+                minLength={6}
+              />
+            </label>
+            <button type="submit" disabled={passwordLoading}>
+              <i className="fas fa-lock"></i> {passwordLoading ? 'Updating...' : 'Change Password'}
+            </button>
+          </form>
+        </div>
+        <div className="users-section">
+          <h3>Registered Users</h3>
+          {loading ? (
+            <div className="loading">Loading users...</div>
+          ) : users.length === 0 ? (
+            <p>No users found.</p>
+          ) : (
+            <div className="users-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Savings</th>
+                    <th>Checking</th>
+                    <th>USDT</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            {editBalance && (
-              <div className="edit-balance-form">
-                <h3>Edit Balances for {users.find(u => u._id === editBalance.userId)?.email}</h3>
-                <form onSubmit={handleBalanceSubmit}>
-                  <label>
-                    Savings Balance
-                    <input
-                      type="number"
-                      name="savingsBalance"
-                      value={editBalance.savingsBalance}
-                      onChange={handleBalanceChange}
-                      required
-                      min="0"
-                    />
-                  </label>
-                  <label>
-                    Checking Balance
-                    <input
-                      type="number"
-                      name="checkingBalance"
-                      value={editBalance.checkingBalance}
-                      onChange={handleBalanceChange}
-                      required
-                      min="0"
-                    />
-                  </label>
-                  <label>
-                    USDT Balance
-                    <input
-                      type="number"
-                      name="usdtBalance"
-                      value={editBalance.usdtBalance}
-                      onChange={handleBalanceChange}
-                      required
-                      min="0"
-                    />
-                  </label>
-                  <button type="submit">Save</button>
-                  <button type="button" onClick={() => setEditBalance(null)}>Cancel</button>
-                </form>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user._id}>
+                      <td>{user.name}</td>
+                      <td>{user.email}</td>
+                      <td>${user.savingsBalance.toLocaleString()}</td>
+                      <td>${user.checkingBalance.toLocaleString()}</td>
+                      <td>${user.usdtBalance.toLocaleString()}</td>
+                      <td>
+                        <button onClick={() => handleBalanceEdit(user)}>Edit Balances</button>
+                        <button onClick={() => handleTransactionEdit(user)}>Manage Transactions</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Edit Balances Modal */}
+      {editBalance && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Edit Balances for {editBalance.email}</h3>
+            <form onSubmit={handleBalanceSubmit}>
+              <label>
+                Savings Balance
+                <input
+                  type="number"
+                  name="savingsBalance"
+                  value={editBalance.savingsBalance}
+                  onChange={handleBalanceChange}
+                  required
+                  min="0"
+                />
+              </label>
+              <label>
+                Checking Balance
+                <input
+                  type="number"
+                  name="checkingBalance"
+                  value={editBalance.checkingBalance}
+                  onChange={handleBalanceChange}
+                  required
+                  min="0"
+                />
+              </label>
+              <label>
+                USDT Balance
+                <input
+                  type="number"
+                  name="usdtBalance"
+                  value={editBalance.usdtBalance}
+                  onChange={handleBalanceChange}
+                  required
+                  min="0"
+                />
+              </label>
+              <div className="modal-buttons">
+                <button type="submit">Save</button>
+                <button type="button" onClick={() => setEditBalance(null)}>Cancel</button>
               </div>
-            )}
-            {editTransactions && (
-              <div className="edit-transactions-form">
-                <h3>Manage Transactions for {users.find(u => u._id === editTransactions)?.email}</h3>
-                <h4>Add New Transaction</h4>
-                <form onSubmit={handleNewTransactionSubmit}>
-                  <label>
-                    Type
-                    <input
-                      type="text"
-                      name="type"
-                      value={newTransaction.type}
-                      onChange={handleNewTransactionChange}
-                      required
-                    />
-                  </label>
-                  <label>
-                    Amount
-                    <input
-                      type="number"
-                      name="amount"
-                      value={newTransaction.amount}
-                      onChange={handleNewTransactionChange}
-                      required
-                      min="0"
-                    />
-                  </label>
-                  <label>
-                    Method
-                    <input
-                      type="text"
-                      name="method"
-                      value={newTransaction.method}
-                      onChange={handleNewTransactionChange}
-                      required
-                    />
-                  </label>
-                  <label>
-                    Status
-                    <select name="status" value={newTransaction.status} onChange={handleNewTransactionChange}>
-                      <option value="Posted">Posted</option>
-                      <option value="Pending">Pending</option>
-                      <option value="Failed">Failed</option>
-                    </select>
-                  </label>
-                  <label>
-                    Date
-                    <input
-                      type="date"
-                      name="date"
-                      value={newTransaction.date}
-                      onChange={handleNewTransactionChange}
-                      required
-                    />
-                  </label>
-                  <button type="submit">Add Transaction</button>
-                  <button type="button" onClick={() => setEditTransactions(null)}>Close</button>
-                </form>
-                <h4>Existing Transactions</h4>
-                {transactions.length === 0 ? (
-                  <p>No transactions found.</p>
-                ) : (
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Method</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Manage Transactions Modal */}
+      {editTransactions && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Manage Transactions for {users.find(u => u._id === editTransactions)?.email}</h3>
+            <h4>Add New Transaction</h4>
+            <form onSubmit={handleNewTransactionSubmit}>
+              <label>
+                Type
+                <input
+                  type="text"
+                  name="type"
+                  value={newTransaction.type}
+                  onChange={handleNewTransactionChange}
+                  required
+                />
+              </label>
+              <label>
+                Amount
+                <input
+                  type="number"
+                  name="amount"
+                  value={newTransaction.amount}
+                  onChange={handleNewTransactionChange}
+                  required
+                  min="0"
+                />
+              </label>
+              <label>
+                Method
+                <input
+                  type="text"
+                  name="method"
+                  value={newTransaction.method}
+                  onChange={handleNewTransactionChange}
+                  required
+                />
+              </label>
+              <label>
+                Status
+                <select name="status" value={newTransaction.status} onChange={handleNewTransactionChange}>
+                  <option value="Posted">Posted</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Failed">Failed</option>
+                </select>
+              </label>
+              <label>
+                Date
+                <input
+                  type="date"
+                  name="date"
+                  value={newTransaction.date}
+                  onChange={handleNewTransactionChange}
+                  required
+                />
+              </label>
+              <div className="modal-buttons">
+                <button type="submit">Add Transaction</button>
+                <button type="button" onClick={() => setEditTransactions(null)}>Close</button>
+              </div>
+            </form>
+            <h4>Existing Transactions</h4>
+            {transactions.length === 0 ? (
+              <p>No transactions found.</p>
+            ) : (
+              <div className="transactions-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Method</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transactions.map((tx) => (
+                      <tr key={tx._id}>
+                        <td>{new Date(tx.date).toLocaleDateString()}</td>
+                        <td>{tx.type}</td>
+                        <td>{tx.method}</td>
+                        <td>${tx.amount.toLocaleString()}</td>
+                        <td>{tx.status}</td>
+                        <td>
+                          <button onClick={() => handleDeleteTransaction(tx._id)}>Delete</button>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {transactions.map((tx) => (
-                        <tr key={tx._id}>
-                          <td>{new Date(tx.date).toLocaleDateString()}</td>
-                          <td>{tx.type}</td>
-                          <td>{tx.method}</td>
-                          <td>${tx.amount.toLocaleString()}</td>
-                          <td>{tx.status}</td>
-                          <td>
-                            <button onClick={() => handleDeleteTransaction(tx._id)}>Delete</button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                )}
+                    ))}
+                  </tbody>
+                </table>
               </div>
             )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -299,6 +299,9 @@
   .secondary-features {
     gap: 0.8rem;
   }
+  .account-sum {
+  height: 480px;
+}
 }
 
 /* Tablet */
